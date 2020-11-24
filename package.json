@@ -1,13 +1,13 @@
 {
     "name": "zapoteco-server",
     "version": "1.0.0",
-    "main": "dist/index.js",
+    "main": "index.js",
     "license": "MIT",
     "scripts": {
         "development": "nodemon",
         "build": "babel src --out-dir dist",
         "heroku-postbuild": "npx prisma generate",
-        "start": "node dist/index.js"
+        "start": "node ./dist/index.js"
     },
     "engines": {
         "node": "14.13.0"
