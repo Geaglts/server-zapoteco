@@ -55,3 +55,37 @@ export const token = {
         return verify(token, jsonToken);
     },
 };
+
+export const verifyRoles = async (validRoles = [], userId, prisma) => {
+    if (!userId) throw new Error("Not Authorized");
+
+    let usuario = await prisma.usuarios.findUnique({
+        where: { id: userId },
+        select: {
+            admin: true,
+            roles: {
+                select: {
+                    rol: {
+                        select: {
+                            rol: true,
+                        },
+                    },
+                },
+            },
+        },
+    });
+
+    if (usuario?.admin) return true;
+
+    let roles = usuario.roles.map(({ rol }) => rol.rol);
+
+    if (roles.length === 0) throw new Error("Not Authorized");
+
+    for (let rol of validRoles) {
+        if (roles.includes(rol.toLowerCase())) {
+            return;
+        }
+    }
+
+    throw new Error("Not Authorized");
+};

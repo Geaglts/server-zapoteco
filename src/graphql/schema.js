@@ -16,9 +16,10 @@ export default gql`
         apaterno: String!
         usuario: String!
         correo: String!
-        contrasena: String!
+        contrasena: String
         ncontrol: String!
         admin: Boolean!
+        roles: [Rol]!
     }
 
     input UserInput {
@@ -33,11 +34,17 @@ export default gql`
 
     type Query {
         getRols: [Rol!]
+        aboutMe: User
+        myRoles: [String]!
     }
 
     type Mutation {
         newUser(input: UserInput): JSON
         assignRoles(rolIds: [Int!], userId: Int!): JSON
         login(user: String!, contrasena: String!): JSON
+    }
+
+    type Subscription {
+        test: Boolean
     }
 `;
