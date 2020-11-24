@@ -3,26 +3,16 @@
 ### Tu archivo .env debe tener un DATABASE_URL:
 
 ```
-DATABASE_URL="postgresql://usuario:contraseña@host:puerto/nombre_db?schema=public"
+DATABASE_URL="postgresql://<usuario>:<contraseña>@<host>:<puerto>/<nombre_db>?schema=<schema>"
 ```
 
-### Elimina esto del gitignore:
+# Antes de correr algún script del package.json recuerda correr:
 
 ```
-# Locks
-package-lock.json
-yarn.lock
+yarn install
 ```
 
-## Antes de correr algún script del package.json recuerda correr
-
-```
-yarn o npm install
-```
-
-### Dependiendo de cual sea el que uses
-
-## Configuracion de prisma
+# Configuracion de prisma
 
 ### Comandos para iniciar prisma:
 
