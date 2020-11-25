@@ -25,7 +25,7 @@ export default new ApolloServer({
             return { req, prisma, pubsub };
         }
 
-        const token = authorization.replace("Bearer ");
+        const token = authorization.replace("Bearer ", "");
 
         const { verifyToken } = Utils.token;
         const data = verifyToken(token);
