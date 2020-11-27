@@ -158,4 +158,59 @@ export default {
             throw new Error(err);
         }
     },
+    async newWord(parent, { input }, { user }) {
+        try {
+            let userWordExists = await prisma.palabras_pendientes.findFirst({
+                where: {
+                    usuario: {
+                        id: user.id,
+                    },
+                    texto: input.zap.toLowerCase(),
+                },
+            });
+
+            if (userWordExists) {
+                return { message: "Ya registraste esta palabra" };
+            }
+
+            let wordExists = await prisma.palabras_aprobadas.findUnique({
+                where: {
+                    texto: input.zap.toLowerCase(),
+                },
+            });
+
+            if (wordExists) {
+                return { message: "Esta palabra ya se encuentra registrada" };
+            }
+
+            let pendiente = await prisma.palabras_pendientes.create({
+                data: {
+                    texto: input.zap.toLowerCase(),
+                    tipo: input.tipo,
+                    usuario: {
+                        connect: {
+                            id: user.id,
+                        },
+                    },
+                },
+            });
+
+            for (const esp of input.esp) {
+                await prisma.traducciones.create({
+                    data: {
+                        traduccion: esp.toLowerCase(),
+                        pendiente: {
+                            connect: {
+                                id: pendiente.id,
+                            },
+                        },
+                    },
+                });
+            }
+
+            return { message: "La palabra ha sido agregada" };
+        } catch (err) {
+            throw new Error(err);
+        }
+    },
 };

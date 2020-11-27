@@ -23,14 +23,44 @@ model usuario_rol {
 }
 
 model usuarios {
-  id         Int           @id @default(autoincrement())
-  nombre     String
-  amaterno   String
-  apaterno   String
-  usuario    String        @unique
-  correo     String        @unique
-  contrasena String
-  ncontrol   String
-  admin      Boolean
-  roles      usuario_rol[]
+  id                  Int                   @id @default(autoincrement())
+  nombre              String
+  amaterno            String
+  apaterno            String
+  usuario             String                @unique
+  correo              String                @unique
+  contrasena          String
+  ncontrol            String
+  admin               Boolean
+  puntos              Int?
+  palabras_aprobadas  palabras_aprobadas[]
+  palabras_pendientes palabras_pendientes[]
+  roles               usuario_rol[]
+}
+
+model palabras_aprobadas {
+  id           Int            @id @default(autoincrement())
+  texto        String         @unique
+  tipo         Int
+  usuarioid    Int?
+  usuario      usuarios?      @relation(fields: [usuarioid], references: [id])
+  traducciones traducciones[]
+}
+
+model palabras_pendientes {
+  id           Int            @id @default(autoincrement())
+  texto        String
+  usuarioid    Int?
+  tipo         Int?
+  usuario      usuarios?      @relation(fields: [usuarioid], references: [id])
+  traducciones traducciones[]
+}
+
+model traducciones {
+  id          Int                  @id @default(autoincrement())
+  traduccion  String
+  palabraid   Int?
+  palabra_pid Int?
+  pendiente   palabras_pendientes? @relation(fields: [palabra_pid], references: [id])
+  aprobada    palabras_aprobadas?  @relation(fields: [palabraid], references: [id])
 }

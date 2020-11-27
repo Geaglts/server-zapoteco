@@ -32,6 +32,12 @@ export default gql`
         ncontrol: String
     }
 
+    input WordInput {
+        esp: [String]!
+        zap: String!
+        tipo: Int!
+    }
+
     type Query {
         getRols: [Rol!]
         aboutMe: User
@@ -39,7 +45,9 @@ export default gql`
     }
 
     type Mutation {
-        newUser(input: UserInput): JSON
+        newUser(input: UserInput!): JSON
+        newWord(input: WordInput!): JSON
+
         assignRoles(rolIds: [Int!], userId: Int!): JSON
         login(user: String!, contrasena: String!): JSON
     }

@@ -46,9 +46,7 @@ export const auth = {
 export const token = {
     generateToken: (data) => {
         const token = process.env.JSON_SECRET_TOKEN;
-        const options = { expiresIn: "24h" };
-
-        return sign({ data }, token, options);
+        return sign({ data }, token);
     },
     verifyToken: (token) => {
         const jsonToken = process.env.JSON_SECRET_TOKEN;
