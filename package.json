@@ -4,7 +4,7 @@
     "main": "./dist/index.js",
     "license": "MIT",
     "scripts": {
-        "development": "nodemon",
+        "dev": "nodemon",
         "build": "babel src --out-dir dist",
         "generate": "prisma generate",
         "start": "node ./dist/index.js"
