@@ -22,6 +22,19 @@ export default gql`
         roles: [Rol]!
     }
 
+    type Example {
+        _id: String!
+        ejemplo_esp: String
+        ejemplo_zap: String
+        significado: String
+    }
+
+    type Words {
+        id: Int
+        texto: String!
+        examples: [Example]!
+    }
+
     input UserInput {
         nombre: String!
         amaterno: String!
@@ -40,6 +53,8 @@ export default gql`
 
     type Query {
         getRols: [Rol!]
+        getWords: [Words]!
+
         aboutMe: User
         myRoles: [String]!
     }

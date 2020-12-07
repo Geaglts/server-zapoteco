@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import Examples from "../../models/Examples";
 const prisma = new PrismaClient();
 
 export default {
@@ -27,6 +28,18 @@ export default {
                 let roles = allRoles.roles.map(({ rol }) => rol);
 
                 return roles;
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
+    },
+    Words: {
+        async examples(parent, args, context) {
+            try {
+                const ejemplosDeMongo = await Examples.find({
+                    texto: parent.texto,
+                });
+                return ejemplosDeMongo;
             } catch (err) {
                 throw new Error(err);
             }

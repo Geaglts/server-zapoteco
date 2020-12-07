@@ -1,6 +1,9 @@
 import App from "./express";
 const { app, server, httpServer } = App;
 
+// mongodb connection
+import "./db-connection";
+
 const PORT = app.get("port");
 const GRAPHQL_PATH = server.graphqlPath;
 

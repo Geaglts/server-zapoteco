@@ -56,4 +56,12 @@ export default {
             throw new Error(err);
         }
     },
+    async getWords(parent, args, context) {
+        try {
+            const palabras = await prisma.palabras_aprobadas.findMany();
+            return palabras;
+        } catch (err) {
+            throw new Error(err);
+        }
+    },
 };
