@@ -39,11 +39,13 @@ model usuarios {
 }
 
 model palabras_aprobadas {
-  id           Int            @id @default(autoincrement())
-  texto        String         @unique
+  id           Int                @id @default(autoincrement())
+  texto        String             @unique
   tipo         Int
   usuarioid    Int?
-  usuario      usuarios?      @relation(fields: [usuarioid], references: [id])
+  fonetica     String
+  usuario      usuarios?          @relation(fields: [usuarioid], references: [id])
+  contextos    palabra_contexto[]
   traducciones traducciones[]
 }
 
@@ -63,4 +65,28 @@ model traducciones {
   palabra_pid Int?
   pendiente   palabras_pendientes? @relation(fields: [palabra_pid], references: [id])
   aprobada    palabras_aprobadas?  @relation(fields: [palabraid], references: [id])
+}
+
+model categorias {
+  id        Int    @id @default(autoincrement())
+  categoria String
+}
+
+model contextos {
+  id       Int                @id @default(autoincrement())
+  contexto String
+  palabras palabra_contexto[]
+}
+
+model palabra_contexto {
+  id          Int                 @id @default(autoincrement())
+  id_palabra  Int?
+  id_contexto Int?
+  contexto    contextos?          @relation(fields: [id_contexto], references: [id])
+  palabra     palabras_aprobadas? @relation(fields: [id_palabra], references: [id])
+}
+
+model tipos {
+  id   Int    @id @default(autoincrement())
+  tipo String
 }
