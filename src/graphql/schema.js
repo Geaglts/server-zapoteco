@@ -26,6 +26,10 @@ export default gql`
         _id: String!
         ejemplo_esp: String
         ejemplo_zap: String
+    }
+
+    type More {
+        examples: [Example]!
         significado: String
     }
 
@@ -33,8 +37,8 @@ export default gql`
         id: Int
         texto: String!
         fonetica: String!
-        examples: [Example]!
         tipo: String
+        more: [More]!
     }
 
     input UserInput {

@@ -34,7 +34,7 @@ export default {
         },
     },
     Words: {
-        async examples(parent, args, context) {
+        async more(parent, args, context) {
             try {
                 const ejemplosDeMongo = await Examples.find({
                     texto: parent.texto,
