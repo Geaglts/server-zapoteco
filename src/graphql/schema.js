@@ -32,7 +32,9 @@ export default gql`
     type Words {
         id: Int
         texto: String!
+        fonetica: String!
         examples: [Example]!
+        tipo: String
     }
 
     input UserInput {

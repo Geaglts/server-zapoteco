@@ -44,5 +44,19 @@ export default {
                 throw new Error(err);
             }
         },
+        async tipo(parent, args, context) {
+            try {
+                switch (parent.tipo) {
+                    case 0:
+                        return "palabra";
+                    case 1:
+                        return "frase";
+                    default:
+                        return null;
+                }
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
     },
 };
