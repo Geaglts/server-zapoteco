@@ -38,7 +38,7 @@ export default gql`
         texto: String!
         fonetica: String!
         tipo: String
-        more: [More]!
+        more: More
     }
 
     input UserInput {

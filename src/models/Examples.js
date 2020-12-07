@@ -10,9 +10,6 @@ const exampleSchema = new Schema({
     ejemplo_esp: {
         type: String,
     },
-    significado: {
-        type: String,
-    },
 });
 
 const exampleModel = model("Example", exampleSchema, "ejemplos");

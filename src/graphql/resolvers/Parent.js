@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import Examples from "../../models/Examples";
+import Significados from "../../models/Significado";
 const prisma = new PrismaClient();
 
 export default {
@@ -36,10 +37,22 @@ export default {
     Words: {
         async more(parent, args, context) {
             try {
-                const ejemplosDeMongo = await Examples.find({
-                    texto: parent.texto,
+                const ejemplosDePalabra = await Examples.find({
+                    palabra: parent.texto,
                 });
-                return ejemplosDeMongo;
+                const significadoDePalabra = await Significados.findOne(
+                    {
+                        palabra: parent.texto,
+                    },
+                    {
+                        significado: true,
+                        _id: false,
+                    }
+                );
+                return {
+                    examples: ejemplosDePalabra,
+                    significado: significadoDePalabra.significado,
+                };
             } catch (err) {
                 throw new Error(err);
             }
