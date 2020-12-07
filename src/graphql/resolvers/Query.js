@@ -58,7 +58,27 @@ export default {
     },
     async getWords(parent, args, context) {
         try {
-            const palabras = await prisma.palabras_aprobadas.findMany();
+            let palabras = await prisma.palabras_aprobadas.findMany({
+                include: {
+                    traducciones: {
+                        select: {
+                            traduccion: true,
+                        },
+                    },
+                },
+            });
+
+            palabras = palabras.map((palabra) => {
+                if (palabra.traducciones.length > 0) {
+                    let traducciones = palabra.traducciones.map(
+                        ({ traduccion }) => traduccion
+                    );
+
+                    return { ...palabra, traducciones };
+                }
+                return palabra;
+            });
+
             return palabras;
         } catch (err) {
             throw new Error(err);

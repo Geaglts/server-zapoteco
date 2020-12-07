@@ -38,6 +38,7 @@ export default gql`
         texto: String!
         fonetica: String!
         tipo: String
+        traducciones: [String]!
         more: More
     }
 

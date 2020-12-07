@@ -51,7 +51,7 @@ export default {
                 );
                 return {
                     examples: ejemplosDePalabra,
-                    significado: significadoDePalabra.significado,
+                    significado: significadoDePalabra?.significado,
                 };
             } catch (err) {
                 throw new Error(err);
