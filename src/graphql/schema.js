@@ -19,7 +19,7 @@ export default gql`
         contrasena: String
         ncontrol: String!
         admin: Boolean!
-        roles: [Rol]!
+        roles: [String]!
     }
 
     type Example {

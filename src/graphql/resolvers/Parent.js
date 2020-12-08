@@ -26,7 +26,7 @@ export default {
                     },
                 });
 
-                let roles = allRoles.roles.map(({ rol }) => rol);
+                let roles = allRoles.roles.map(({ rol: { rol } }) => rol);
 
                 return roles;
             } catch (err) {
