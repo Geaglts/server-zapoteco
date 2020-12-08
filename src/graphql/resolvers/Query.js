@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { Tipos } from "../../controllers";
 
 const prisma = new PrismaClient();
 
@@ -14,6 +15,7 @@ export default {
             throw new Error(err);
         }
     },
+    getTypes: Tipos.read,
     async aboutMe(parent, args, { user }) {
         try {
             if (!user) throw new Error("Not Authorized");

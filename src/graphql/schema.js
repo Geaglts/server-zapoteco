@@ -42,6 +42,11 @@ export default gql`
         more: More
     }
 
+    type WordType {
+        id: Int!
+        tipo: String!
+    }
+
     input UserInput {
         nombre: String!
         amaterno: String!
@@ -61,6 +66,7 @@ export default gql`
     type Query {
         getRols: [Rol!]
         getWords: [Words]!
+        getTypes: [WordType]!
 
         aboutMe: User
         myRoles: [String]!
