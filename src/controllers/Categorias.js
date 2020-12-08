@@ -41,6 +41,9 @@ export default {
             // Actualizar un tipo
             await prisma.categorias.update({
                 where: {
+                    id,
+                },
+                data: {
                     categoria: categoria.toLowerCase(),
                 },
             });

@@ -83,7 +83,7 @@ export default gql`
     # Categorias
     type Category {
         id: Int!
-        category: String!
+        categoria: String!
     }
 
     extend type Query {
@@ -91,8 +91,8 @@ export default gql`
     }
 
     extend type Mutation {
-        newCategory(category: String!): JSON
-        updateCategory(id: Int!, category: String!): JSON
+        newCategory(categoria: String!): JSON
+        updateCategory(id: Int!, categoria: String!): JSON
     }
 
     type Subscription {

@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { Categorias } from "../../controllers";
 import * as Utils from "../../utils";
 
 const prisma = new PrismaClient();
@@ -213,4 +214,7 @@ export default {
             throw new Error(err);
         }
     },
+    //Categorias
+    newCategory: Categorias.create,
+    updateCategory: Categorias.update,
 };
