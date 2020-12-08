@@ -113,6 +113,11 @@ export default gql`
         updateContexto(id: Int!, contexto: String!): Contexto
     }
 
+    # Roles
+    extend type Mutation {
+        setRols(rolids: [Int], usuarioid: Int!): JSON
+    }
+
     type Subscription {
         test: Boolean
     }
