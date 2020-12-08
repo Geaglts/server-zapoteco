@@ -80,6 +80,21 @@ export default gql`
         login(user: String!, contrasena: String!): JSON
     }
 
+    # Categorias
+    type Category {
+        id: Int!
+        category: String!
+    }
+
+    extend type Query {
+        getCategories: [Category]!
+    }
+
+    extend type Mutation {
+        newCategory(category: String!): JSON
+        updateCategory(id: Int!, category: String!): JSON
+    }
+
     type Subscription {
         test: Boolean
     }
