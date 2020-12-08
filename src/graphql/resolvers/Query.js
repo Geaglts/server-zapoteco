@@ -1,5 +1,9 @@
 import { PrismaClient } from "@prisma/client";
-import { Categorias, Contexto, Tipos } from "../../controllers";
+import {
+    CategoriasController,
+    ContextoController,
+    TiposController,
+} from "../../controllers";
 
 const prisma = new PrismaClient();
 
@@ -15,7 +19,6 @@ export default {
             throw new Error(err);
         }
     },
-    getTypes: Tipos.read,
     async aboutMe(parent, args, { user }) {
         try {
             if (!user) throw new Error("Not Authorized");
@@ -89,8 +92,10 @@ export default {
             throw new Error(err);
         }
     },
+    // Tipos
+    getTypes: TiposController.read,
     // Categorias
-    getCategories: Categorias.read,
+    getCategories: CategoriasController.read,
     // Contexto
-    getContextos: Contexto.read,
+    getContextos: ContextoController.read,
 };

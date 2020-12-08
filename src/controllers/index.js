@@ -1,3 +1,4 @@
-export { default as Tipos } from "./Tipos";
-export { default as Contexto } from "./Contexto";
-export { default as Categorias } from "./Categorias";
+export { default as TiposController } from "./Tipos.Controller";
+export { default as ContextoController } from "./Contexto.Controller";
+export { default as CategoriasController } from "./Categorias.Controller";
+export { default as UsuariosController } from "./Usuario.Controller";
