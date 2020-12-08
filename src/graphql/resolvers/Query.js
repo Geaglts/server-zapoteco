@@ -20,7 +20,7 @@ export default {
         try {
             if (!user) throw new Error("Not Authorized");
 
-            let userExists = await prisma.usuarios.findUnique({
+            let userExists = await prisma.usuarios.findOne({
                 where: {
                     id: user.id,
                 },
@@ -37,7 +37,7 @@ export default {
         try {
             if (!user) throw new Error("Not Authorized");
 
-            let usuario = await prisma.usuarios.findUnique({
+            let usuario = await prisma.usuarios.findOne({
                 where: { id: user.id },
                 select: {
                     admin: true,
@@ -67,6 +67,9 @@ export default {
                             traduccion: true,
                         },
                     },
+                },
+                orderBy: {
+                    texto: "asc",
                 },
             });
 

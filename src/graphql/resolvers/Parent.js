@@ -7,7 +7,7 @@ export default {
     User: {
         async roles({ id }, args, context) {
             try {
-                const allRoles = await prisma.usuarios.findUnique({
+                const allRoles = await prisma.usuarios.findOne({
                     where: {
                         id,
                     },
@@ -59,14 +59,13 @@ export default {
         },
         async tipo(parent, args, context) {
             try {
-                switch (parent.tipo) {
-                    case 0:
-                        return "palabra";
-                    case 1:
-                        return "frase";
-                    default:
-                        return null;
-                }
+                let id = parent.idtipo;
+                const tipo = await prisma.tipos.findOne({
+                    where: {
+                        id,
+                    },
+                });
+                return tipo.tipo;
             } catch (err) {
                 throw new Error(err);
             }
