@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { Tipos } from "../../controllers";
 import * as Utils from "../../utils";
 
 const prisma = new PrismaClient();
@@ -213,4 +214,7 @@ export default {
             throw new Error(err);
         }
     },
+    // Tipos
+    newType: Tipos.create,
+    updateType: Tipos.update,
 };
