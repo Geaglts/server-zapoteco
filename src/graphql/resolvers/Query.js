@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { Categorias, Tipos } from "../../controllers";
+import { Categorias, Contexto, Tipos } from "../../controllers";
 
 const prisma = new PrismaClient();
 
@@ -91,4 +91,6 @@ export default {
     },
     // Categorias
     getCategories: Categorias.read,
+    // Contexto
+    getContextos: Contexto.read,
 };

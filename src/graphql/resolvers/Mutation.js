@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { Tipos, Categorias } from "../../controllers";
+import { Tipos, Categorias, Contexto } from "../../controllers";
 import * as Utils from "../../utils";
 
 const prisma = new PrismaClient();
@@ -220,4 +220,7 @@ export default {
     //Categorias
     newCategory: Categorias.create,
     updateCategory: Categorias.update,
+    //Contextos
+    newContexto: Contexto.create,
+    updateContexto: Contexto.update,
 };
