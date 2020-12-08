@@ -4,12 +4,21 @@ const prisma = new PrismaClient();
 export default {
     async create(parent, { tipo }, context) {
         try {
-            // Nuevo tipo
-            const nuevoTipo = await prisma.tipos.create({
-                data: { tipo },
+            // Ver si el tipo existe
+            const tipoExiste = await prisma.tipos.findFirst({
+                where: {
+                    tipo: tipo.toLowerCase(),
+                },
             });
 
-            console.log(nuevoTipo);
+            if (tipoExiste) {
+                return { status: false, msg: "El tipo ya existe" };
+            }
+
+            // Nuevo tipo
+            await prisma.tipos.create({
+                data: { tipo: tipo.toLowerCase() },
+            });
 
             return { status: true, msg: "Creado correctamente" };
         } catch (err) {
@@ -28,12 +37,10 @@ export default {
     async update(parent, { id, tipo }, context) {
         try {
             // Actualizar un tipo
-            const actualizacion = await prisma.tipos.update({
+            await prisma.tipos.update({
                 where: { id },
-                data: { tipo },
+                data: { tipo: tipo.toLowerCase() },
             });
-
-            console.log(actualizacion);
 
             return { status: true, msg: "Actualizado correctamente" };
         } catch (err) {
