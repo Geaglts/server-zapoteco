@@ -41,21 +41,24 @@ model usuarios {
 model palabras_aprobadas {
   id           Int                @id @default(autoincrement())
   texto        String             @unique
-  tipo         Int
+  idtipo       Int
   usuarioid    Int?
   fonetica     String
+  tipo         tipos              @relation(fields: [idtipo], references: [id])
   usuario      usuarios?          @relation(fields: [usuarioid], references: [id])
   contextos    palabra_contexto[]
   traducciones traducciones[]
 }
 
 model palabras_pendientes {
-  id           Int            @id @default(autoincrement())
-  texto        String
-  usuarioid    Int?
-  tipo         Int?
-  usuario      usuarios?      @relation(fields: [usuarioid], references: [id])
-  traducciones traducciones[]
+  id               Int                @id @default(autoincrement())
+  texto            String
+  usuarioid        Int?
+  idtipo           Int?
+  tipo             tipos?             @relation(fields: [idtipo], references: [id])
+  usuario          usuarios?          @relation(fields: [usuarioid], references: [id])
+  contextos? palabra_contexto[]
+  traducciones     traducciones[]
 }
 
 model traducciones {
@@ -79,14 +82,18 @@ model contextos {
 }
 
 model palabra_contexto {
-  id          Int                 @id @default(autoincrement())
-  id_palabra  Int?
-  id_contexto Int?
-  contexto    contextos?          @relation(fields: [id_contexto], references: [id])
-  palabra     palabras_aprobadas? @relation(fields: [id_palabra], references: [id])
+  id                  Int                  @id @default(autoincrement())
+  id_palabra          Int?
+  id_contexto         Int?
+  id_posible_palabra  Int?
+  contexto            contextos?           @relation(fields: [id_contexto], references: [id])
+  palabra             palabras_aprobadas?  @relation(fields: [id_palabra], references: [id])
+  palabra_pendientes palabras_pendientes? @relation(fields: [id_posible_palabra], references: [id])
 }
 
 model tipos {
-  id   Int    @id @default(autoincrement())
-  tipo String
+  id                  Int                   @id @default(autoincrement())
+  tipo                String
+  palabras_aprobadas  palabras_aprobadas[]
+  palabras_pendientes palabras_pendientes[]
 }
