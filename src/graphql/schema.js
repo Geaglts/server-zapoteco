@@ -83,6 +83,21 @@ export default gql`
         updateType(id: Int!, tipo: String!): JSON
     }
 
+    # Categorias
+    type Category {
+        id: Int!
+        categoria: String!
+    }
+
+    extend type Query {
+        getCategories: [Category]!
+    }
+
+    extend type Mutation {
+        newCategory(categoria: String!): JSON
+        updateCategory(id: Int!, categoria: String!): JSON
+    }
+
     type Subscription {
         test: Boolean
     }

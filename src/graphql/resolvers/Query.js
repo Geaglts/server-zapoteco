@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { Tipos } from "../../controllers";
+import { Categorias, Tipos } from "../../controllers";
 
 const prisma = new PrismaClient();
 
@@ -86,4 +86,6 @@ export default {
             throw new Error(err);
         }
     },
+    // Categorias
+    getCategories: Categorias.read,
 };
