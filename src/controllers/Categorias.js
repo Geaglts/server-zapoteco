@@ -1,12 +1,11 @@
 import { PrismaClient } from "@prisma/client";
-import { printSchema } from "graphql";
 const prisma = new PrismaClient();
 
 export default {
     async create(parent, { categoria }, context) {
         try {
             //Ver si la categoria existe
-            const categoriaExiste = await prisma.categorias.findFirst({
+            const categoriaExiste = await prisma.contextos.findFirst({
                 where: {
                     categoria: categoria.toLowerCase(),
                 },
@@ -16,7 +15,7 @@ export default {
                 return { status: true, msg: "La categoria ya existe" };
 
             // Nueva categoria
-            await prisma.categorias.create({
+            await prisma.contextos.create({
                 data: {
                     categoria: categoria.toLowerCase(),
                 },
@@ -30,7 +29,7 @@ export default {
     async read(parent, args, context) {
         try {
             // Todos las categorias
-            const categorias = await prisma.categorias.findMany();
+            const categorias = await prisma.contextos.findMany();
             return categorias;
         } catch (err) {
             throw new Error(err);
@@ -39,7 +38,7 @@ export default {
     async update(parent, { id, categoria }, context) {
         try {
             // Actualizar una categoria
-            await prisma.categorias.update({
+            await prisma.contextos.update({
                 where: {
                     id,
                 },
