@@ -3,6 +3,7 @@ import {
     TiposController,
     CategoriasController,
     ContextoController,
+    UsuarioController,
 } from "../../controllers";
 import * as Utils from "../../utils";
 
@@ -218,7 +219,7 @@ export default {
             throw new Error(err);
         }
     },
-    // Tipos
+    //Tipos
     newType: TiposController.create,
     updateType: TiposController.update,
     //Categorias
@@ -227,4 +228,6 @@ export default {
     //Contextos
     newContexto: ContextoController.create,
     updateContexto: ContextoController.update,
+    //Roles
+    setRols: UsuarioController.rols.set,
 };

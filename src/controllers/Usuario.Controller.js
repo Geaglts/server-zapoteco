@@ -14,8 +14,8 @@ export default {
         async set(parent, { rolids, usuarioid }, context) {
             try {
                 //Valida los datos de entrada
-                const validInputs =
-                    validLength(rolids) && validLength(usuarioid);
+                const validInputs = validLength(rolids);
+
                 if (!validInputs) {
                     return { status: false };
                 }
@@ -28,7 +28,7 @@ export default {
                     },
                 });
 
-                for (const rolid of rols) {
+                for (const rolid of rolids) {
                     //Asigna el rol
                     await prisma.usuario_rol.create({
                         //connect where id usuario = usuarioid
@@ -47,6 +47,7 @@ export default {
                         },
                     });
                 }
+                return { status: true };
             } catch (e) {
                 throw new Error(e);
             }
