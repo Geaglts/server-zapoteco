@@ -98,6 +98,21 @@ export default gql`
         updateCategory(id: Int!, categoria: String!): JSON
     }
 
+    # Contexto
+    type Contexto {
+        id: Int!
+        contexto: String!
+    }
+
+    extend type Query {
+        getContextos: [Contexto]!
+    }
+
+    extend type Mutation {
+        newContexto(contexto: String!): Contexto
+        updateContexto(id: Int!, contexto: String!): Contexto
+    }
+
     type Subscription {
         test: Boolean
     }
