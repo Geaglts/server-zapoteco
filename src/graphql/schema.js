@@ -78,6 +78,9 @@ export default gql`
 
         assignRoles(rolIds: [Int!], userId: Int!): JSON
         login(user: String!, contrasena: String!): JSON
+
+        newType: JSON
+        updateType: JSON
     }
 
     type Subscription {
