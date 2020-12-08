@@ -8,7 +8,7 @@
         "build": "babel src --out-dir dist",
         "heroku-prebuild": "babel src --out-dir dist",
         "start": "node dist/index.js",
-        "heroku-postbuild": "prisma introspect && prisma generate"
+        "heroku-postbuild": "prisma generate"
     },
     "engines": {
         "node": "14.13.0"
