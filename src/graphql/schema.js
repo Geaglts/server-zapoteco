@@ -15,20 +15,6 @@ export default gql`
         ejemplo_zap: String
     }
 
-    type More {
-        examples: [Example]!
-        significado: String
-    }
-
-    type Words {
-        id: Int
-        texto: String!
-        fonetica: String!
-        tipo: String
-        traducciones: [String]!
-        more: More
-    }
-
     type WordType {
         id: Int!
         tipo: String!
@@ -86,6 +72,25 @@ export default gql`
 
     extend type Query {
         getUser(correo: String!): User
+    }
+
+    # Palabras pendientes
+    type More {
+        examples: [Example]!
+        significado: String
+    }
+
+    type Words {
+        id: Int
+        texto: String!
+        fonetica: String!
+        tipo: String
+        traducciones: [String]!
+        more: More
+    }
+
+    extend type Query {
+        getPendingWords: [Words]
     }
 
     # Categorias
