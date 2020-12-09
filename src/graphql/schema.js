@@ -83,9 +83,9 @@ export default gql`
     type Words {
         id: Int
         texto: String!
-        fonetica: String!
+        fonetica: String
         tipo: String
-        traducciones: [String]!
+        traducciones: [String]
         more: More
     }
 
