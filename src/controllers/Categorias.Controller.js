@@ -5,7 +5,7 @@ export default {
     async create(parent, { categoria }, context) {
         try {
             //Ver si la categoria existe
-            const categoriaExiste = await prisma.contextos.findFirst({
+            const categoriaExiste = await prisma.categorias.findFirst({
                 where: {
                     categoria: categoria.toLowerCase(),
                 },
@@ -15,7 +15,7 @@ export default {
                 return { status: true, msg: "La categoria ya existe" };
 
             // Nueva categoria
-            await prisma.contextos.create({
+            await prisma.categorias.create({
                 data: {
                     categoria: categoria.toLowerCase(),
                 },
@@ -29,7 +29,7 @@ export default {
     async read(parent, args, context) {
         try {
             // Todos las categorias
-            const categorias = await prisma.contextos.findMany();
+            const categorias = await prisma.categorias.findMany();
             return categorias;
         } catch (err) {
             throw new Error(err);
@@ -38,7 +38,7 @@ export default {
     async update(parent, { id, categoria }, context) {
         try {
             // Actualizar una categoria
-            await prisma.contextos.update({
+            await prisma.categorias.update({
                 where: {
                     id,
                 },
