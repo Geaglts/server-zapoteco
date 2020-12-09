@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import validator from "validator";
 
 const prisma = new PrismaClient();
 
@@ -10,6 +11,26 @@ const validLength = (field) => {
 };
 
 export default {
+    readOne: async (parent, { correo }, context) => {
+        try {
+            if (validator.isEmail(correo)) {
+                const siHayUsuario = await prisma.usuarios.findOne({
+                    where: {
+                        correo,
+                    },
+                });
+
+                if (siHayUsuario) {
+                    return siHayUsuario;
+                }
+
+                return null;
+            }
+            return null;
+        } catch (err) {
+            throw new Error(err);
+        }
+    },
     rols: {
         async set(parent, { rolids, usuarioid }, context) {
             try {

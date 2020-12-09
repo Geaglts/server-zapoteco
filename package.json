@@ -31,7 +31,8 @@
         "graphql-tools": "^7.0.1",
         "graphql-type-json": "^0.3.2",
         "jsonwebtoken": "^8.5.1",
-        "mongoose": "^5.11.4"
+        "mongoose": "^5.11.4",
+        "validator": "^13.5.1"
     },
     "devDependencies": {}
 }
