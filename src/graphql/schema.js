@@ -74,7 +74,7 @@ export default gql`
         getUser(correo: String!): User
     }
 
-    # Palabras pendientes
+    # Palabras
     type More {
         examples: [Example]!
         significado: String
@@ -89,6 +89,11 @@ export default gql`
         more: More
     }
 
+    extend type Mutation {
+        checkPendingWord(id_usuario: Int!, id_palabra_p: Int!): JSON
+    }
+
+    # Palabras pendientes
     extend type Query {
         getPendingWords: [Words]
     }
