@@ -55,6 +55,7 @@ model palabras_pendientes {
   texto        String
   usuarioid    Int?
   idtipo       Int?
+  fonetica     String
   tipo         tipos?             @relation(fields: [idtipo], references: [id])
   usuario      usuarios?          @relation(fields: [usuarioid], references: [id])
   contextos    palabra_contexto[]
