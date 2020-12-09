@@ -4,6 +4,7 @@ import {
     ContextoController,
     TiposController,
     UsuarioController,
+    PalabraController,
 } from "../../controllers";
 
 const prisma = new PrismaClient();
@@ -93,6 +94,8 @@ export default {
             throw new Error(err);
         }
     },
+    // Palabras pendientes
+    getPendingWords: PalabraController.pendingWords.read,
     // Usuarios
     getUser: UsuarioController.readOne,
     // Tipos
