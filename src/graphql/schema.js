@@ -9,19 +9,6 @@ export default gql`
         desc: String
     }
 
-    type User {
-        id: Int!
-        nombre: String!
-        amaterno: String!
-        apaterno: String!
-        usuario: String!
-        correo: String!
-        contrasena: String
-        ncontrol: String!
-        admin: Boolean!
-        roles: [String]!
-    }
-
     type Example {
         _id: String!
         ejemplo_esp: String
@@ -81,6 +68,24 @@ export default gql`
 
         newType(tipo: String!): JSON
         updateType(id: Int!, tipo: String!): JSON
+    }
+
+    # Usuarios
+    type User {
+        id: Int!
+        nombre: String!
+        amaterno: String!
+        apaterno: String!
+        usuario: String!
+        correo: String!
+        contrasena: String
+        ncontrol: String!
+        admin: Boolean!
+        roles: [String]!
+    }
+
+    extend type Query {
+        getUser(correo: String!): User
     }
 
     # Categorias

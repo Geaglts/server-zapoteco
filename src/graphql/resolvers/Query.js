@@ -3,6 +3,7 @@ import {
     CategoriasController,
     ContextoController,
     TiposController,
+    UsuarioController,
 } from "../../controllers";
 
 const prisma = new PrismaClient();
@@ -92,6 +93,8 @@ export default {
             throw new Error(err);
         }
     },
+    // Usuarios
+    getUser: UsuarioController.readOne,
     // Tipos
     getTypes: TiposController.read,
     // Categorias
