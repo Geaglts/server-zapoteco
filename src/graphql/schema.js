@@ -166,7 +166,7 @@ export default gql`
         significado: String
     }
 
-    type BaseInput {
+    input BaseInput {
         id: ID
         base_esp: String
         base_zap: String
