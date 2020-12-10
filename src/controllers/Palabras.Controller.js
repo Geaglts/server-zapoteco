@@ -171,32 +171,46 @@ export default {
                 });
 
                 if (hay_palabra) {
-                    const palabra_aprobada = await prisma.palabras_aprobadas.create(
-                        {
-                            data: {
-                                texto: hay_palabra.texto,
-                                fonetica: hay_palabra.fonetica,
-                                tipo: {
-                                    connect: {
-                                        id: hay_palabra.idtipo,
-                                    },
-                                },
-                                usuario: {
-                                    connect: {
-                                        id: id_usuario,
-                                    },
-                                },
-                                categoria: {
-                                    connect: {
-                                        id: hay_palabra.categoria_id,
-                                    },
-                                },
-                                base: {
-                                    connect: {
-                                        id: hay_palabra.base_id,
-                                    },
+                    let palabra_aprobada_data = {
+                        texto: hay_palabra.texto,
+                        fonetica: hay_palabra.fonetica,
+                        tipo: {
+                            connect: {
+                                id: hay_palabra.idtipo,
+                            },
+                        },
+                        usuario: {
+                            connect: {
+                                id: id_usuario,
+                            },
+                        },
+                    };
+
+                    if (hay_palabra.categoria_id) {
+                        palabra_aprobada = {
+                            ...palabra_aprobada,
+                            categoria: {
+                                connect: {
+                                    id: hay_palabra.categoria_id,
                                 },
                             },
+                        };
+                    }
+
+                    if (hay_palabra.base_id) {
+                        palabra_aprobada_data = {
+                            ...palabra_aprobada,
+                            base: {
+                                connect: {
+                                    id: hay_palabra.base_id,
+                                },
+                            },
+                        };
+                    }
+
+                    const palabra_aprobada = await prisma.palabras_aprobadas.create(
+                        {
+                            data: palabra_aprobada_data,
                         }
                     );
 
