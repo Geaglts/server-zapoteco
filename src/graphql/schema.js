@@ -118,6 +118,7 @@ export default gql`
 
     extend type Mutation {
         newWordPending(input: newWordPendingInput): Words
+        rejectPendingWord(palabra_id: Int!, mensaje: String): Boolean
     }
 
     # Categorias

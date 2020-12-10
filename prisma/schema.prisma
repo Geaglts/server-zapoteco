@@ -65,6 +65,8 @@ model palabras_pendientes {
   rechazado           Boolean            @default(false)
   mensaje             String?
   rechazado_por       Int?
+  ejemplo_esp         String?
+  ejemplo_zap         String?
   categoria           categorias?        @relation(fields: [categoria_id], references: [id])
   tipo                tipos?             @relation(fields: [idtipo], references: [id])
   usuario_que_rechazo usuarios?          @relation("palabras_pendientes_rechazado_porTousuarios", fields: [rechazado_por], references: [id])

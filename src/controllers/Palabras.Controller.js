@@ -339,5 +339,37 @@ export default {
                 throw new Error(err);
             }
         },
+        rejectWord: async (parent, { palabra_id, mensaje }, { user }) => {
+            try {
+                // Ver si el mensaje tiene mas de 2 caracteres
+                if (mensaje.length < 3) return false;
+
+                // Busca si hay un usuario
+                if (!user) return false;
+
+                // Obten el id del usuario
+                const usuario_id = user.id;
+
+                // Actualizar la palabra a rechazada
+                await prisma.palabras_pendientes.update({
+                    where: {
+                        id: palabra_id,
+                    },
+                    data: {
+                        rechazado: true,
+                        usuario_que_rechazo: {
+                            connect: {
+                                id: usuario_id,
+                            },
+                        },
+                        mensaje,
+                    },
+                });
+
+                return true;
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
     },
 };
