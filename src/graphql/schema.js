@@ -100,9 +100,13 @@ export default gql`
         fonetica: String!
         traduccion: String!
 
+        base_id: Int!
         idcontexto: Int!
-        usuarioid: Int!
         idtipo: Int!
+
+        ejemplo_esp: String!
+        ejemplo_zap: String!
+        significado: String!
     }
 
     extend type Query {

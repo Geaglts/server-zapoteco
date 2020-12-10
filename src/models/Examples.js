@@ -7,7 +7,7 @@ const exampleSchema = new Schema({
     ejemplo_esp: {
         type: String,
     },
-    ejemplo_esp: {
+    ejemplo_zap: {
         type: String,
     },
 });

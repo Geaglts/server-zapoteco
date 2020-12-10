@@ -221,6 +221,7 @@ export default {
         }
     },
     //Palabras
+    newWordPending: PalabraController.pendingWords.create,
     checkPendingWord: PalabraController.pendingWords.check,
     //Tipos
     newType: TiposController.create,

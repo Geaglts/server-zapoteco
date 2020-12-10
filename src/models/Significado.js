@@ -4,6 +4,9 @@ const significadoSchema = new Schema({
     significado: {
         type: String,
     },
+    palabra: {
+        type: String,
+    },
 });
 
 const significadoModel = model(

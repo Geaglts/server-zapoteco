@@ -4,6 +4,39 @@ const prisma = new PrismaClient();
 
 export default {
     pendingWords: {
+        create: async (parent, { input }, { user }) => {
+            try {
+                if (!user) return null;
+
+                let {
+                    texto,
+                    fonetica,
+                    traduccion,
+                    base_id,
+                    idcontexto,
+                    idtipo,
+                    ejemplo_esp,
+                    ejemplo_zap,
+                    significado,
+                } = input;
+                console.log(
+                    texto,
+                    fonetica,
+                    traduccion,
+                    base_id,
+                    idcontexto,
+                    idtipo,
+                    ejemplo_esp,
+                    ejemplo_zap,
+                    significado,
+                    user.id
+                );
+
+                return null;
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
         read: async (parent, args, context) => {
             try {
                 let pendingWordsResponse = await prisma.palabras_pendientes.findMany(
