@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import Examples from "../../models/Examples";
 import Significados from "../../models/Significado";
+import Base from "../../models/Base";
 const prisma = new PrismaClient();
 
 export default {
@@ -86,6 +87,14 @@ export default {
                 });
 
                 return categoria.categoria;
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
+        async base(parent, args, context) {
+            try {
+                if (!parent.base_id) return null;
+                return await Base.findById(parent.base_id);
             } catch (err) {
                 throw new Error(err);
             }

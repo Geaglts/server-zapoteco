@@ -89,6 +89,7 @@ export default gql`
         usuarioid: Int
         categoria: String
         contextos: [Contexto]
+        base: Base
         more: More
     }
 
