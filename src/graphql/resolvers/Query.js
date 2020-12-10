@@ -72,6 +72,11 @@ export default {
                             traduccion: true,
                         },
                     },
+                    contextos: {
+                        select: {
+                            contexto: true,
+                        },
+                    },
                 },
                 orderBy: {
                     texto: "asc",
@@ -84,7 +89,14 @@ export default {
                         ({ traduccion }) => traduccion
                     );
 
-                    return { ...palabra, traducciones };
+                    palabra = { ...palabra, traducciones };
+                }
+                if (palabra.contextos.length > 0) {
+                    let contextos = palabra.contextos.map(
+                        ({ contexto }) => contexto
+                    );
+
+                    palabra = { ...palabra, contextos };
                 }
                 return palabra;
             });
