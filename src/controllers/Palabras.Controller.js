@@ -186,6 +186,16 @@ export default {
                                         id: id_usuario,
                                     },
                                 },
+                                categoria: {
+                                    connect: {
+                                        id: hay_palabra.categoria_id,
+                                    },
+                                },
+                                base: {
+                                    connect: {
+                                        id: hay_palabra.base_id,
+                                    },
+                                },
                             },
                         }
                     );
