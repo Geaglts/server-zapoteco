@@ -5,6 +5,7 @@ import {
     ContextoController,
     UsuarioController,
     PalabraController,
+    BaseController,
 } from "../../controllers";
 import * as Utils from "../../utils";
 
@@ -234,4 +235,7 @@ export default {
     updateContexto: ContextoController.update,
     //Roles
     setRols: UsuarioController.rols.set,
+    // Bases
+    newBase: BaseController.create,
+    updateBase: BaseController.update,
 };

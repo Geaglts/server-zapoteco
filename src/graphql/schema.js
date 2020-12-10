@@ -157,4 +157,28 @@ export default gql`
     type Subscription {
         test: Boolean
     }
+
+    # Bases
+    type Base {
+        id: ID
+        base_esp: String
+        base_zap: String
+        significado: String
+    }
+
+    type BaseInput {
+        id: ID
+        base_esp: String
+        base_zap: String
+        significado: String
+    }
+
+    extend type Query {
+        allTheBases: [Base]
+    }
+
+    extend type Mutation {
+        newBase(input: BaseInput!): Base
+        updateBase(input: BaseInput!): Base
+    }
 `;

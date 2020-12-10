@@ -5,6 +5,7 @@ import {
     TiposController,
     UsuarioController,
     PalabraController,
+    BaseController,
 } from "../../controllers";
 
 const prisma = new PrismaClient();
@@ -116,4 +117,6 @@ export default {
     getCategories: CategoriasController.read,
     // Contexto
     getContextos: ContextoController.read,
+    // Bases
+    allTheBases: BaseController.read,
 };
