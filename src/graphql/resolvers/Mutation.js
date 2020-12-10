@@ -4,6 +4,7 @@ import {
     CategoriasController,
     ContextoController,
     UsuarioController,
+    PalabraController,
 } from "../../controllers";
 import * as Utils from "../../utils";
 
@@ -219,6 +220,8 @@ export default {
             throw new Error(err);
         }
     },
+    //Palabras
+    checkPendingWord: PalabraController.pendingWords.check,
     //Tipos
     newType: TiposController.create,
     updateType: TiposController.update,

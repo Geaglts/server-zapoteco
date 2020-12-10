@@ -86,6 +86,7 @@ export default gql`
         fonetica: String
         tipo: String
         traducciones: [String]
+        usuarioid: Int
         more: More
     }
 
