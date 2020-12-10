@@ -95,8 +95,22 @@ export default gql`
     }
 
     # Palabras pendientes
+    input newWordPendingInput {
+        texto: String!
+        fonetica: String!
+        traduccion: String!
+
+        idcontexto: Int!
+        usuarioid: Int!
+        idtipo: Int!
+    }
+
     extend type Query {
         getPendingWords: [Words]
+    }
+
+    extend type Mutation {
+        newWordPending(input: newWordPendingInput): Words
     }
 
     # Categorias
