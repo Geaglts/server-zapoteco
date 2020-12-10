@@ -87,6 +87,8 @@ export default gql`
         tipo: String
         traducciones: [String]
         usuarioid: Int
+        categoria: String
+        contextos: [Contexto]
         more: More
     }
 
@@ -102,6 +104,7 @@ export default gql`
 
         base_id: Int!
         idcontexto: Int!
+        categoria_id: Int!
         idtipo: Int!
 
         ejemplo_esp: String!
@@ -133,8 +136,8 @@ export default gql`
 
     # Contexto
     type Contexto {
-        id: Int!
-        contexto: String!
+        id: Int
+        contexto: String
     }
 
     extend type Query {

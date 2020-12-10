@@ -15,6 +15,7 @@ export default {
                     fonetica,
                     traduccion,
                     idcontexto,
+                    categoria_id,
                     idtipo,
                     base_id,
 
@@ -39,14 +40,14 @@ export default {
                                     traduccion,
                                 },
                             },
-                            contextos: {
-                                connect: {
-                                    id: idcontexto,
-                                },
-                            },
                             tipo: {
                                 connect: {
                                     id: idtipo,
+                                },
+                            },
+                            categoria: {
+                                connect: {
+                                    id: categoria_id,
                                 },
                             },
                             usuario: {
@@ -62,6 +63,20 @@ export default {
                         },
                     }
                 );
+
+                // Crear un nuevo contexto para la palabra
+                await prisma.palabra_contexto.create({
+                    data: {
+                        contexto: {
+                            connect: { id: idcontexto },
+                        },
+                        palabra_pendientes: {
+                            connect: {
+                                id: nueva_palabra_pendiente.id,
+                            },
+                        },
+                    },
+                });
 
                 // Buscar la base de la palabra
                 // let base = await prisma.bases.findOne({
@@ -95,7 +110,7 @@ export default {
 
                 await nuevo_ejemplo.save();
 
-                return nunueva_palabra_pendientell;
+                return nueva_palabra_pendiente;
             } catch (err) {
                 throw new Error(err);
             }
@@ -108,6 +123,11 @@ export default {
                             traducciones: {
                                 select: {
                                     traduccion: true,
+                                },
+                            },
+                            contextos: {
+                                select: {
+                                    contexto: true,
                                 },
                             },
                         },
@@ -124,7 +144,14 @@ export default {
                                 ({ traduccion }) => traduccion
                             );
 
-                            return { ...pendingWord, traducciones };
+                            pendingWord = { ...pendingWord, traducciones };
+                        }
+                        if (pendingWord.contextos.length > 0) {
+                            let contextos = pendingWord.contextos.map(
+                                ({ contexto }) => contexto
+                            );
+
+                            pendingWord = { ...pendingWord, contextos };
                         }
                         return pendingWord;
                     }

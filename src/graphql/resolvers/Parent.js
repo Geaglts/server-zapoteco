@@ -70,5 +70,21 @@ export default {
                 throw new Error(err);
             }
         },
+        async categoria(parent, args, context) {
+            try {
+                let categoria = await prisma.categorias.findFirst({
+                    where: {
+                        id: parent.categoria_id,
+                    },
+                    select: {
+                        categoria: true,
+                    },
+                });
+
+                return categoria.categoria;
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
     },
 };
