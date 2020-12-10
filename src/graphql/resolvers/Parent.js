@@ -72,6 +72,10 @@ export default {
         },
         async categoria(parent, args, context) {
             try {
+                if (!parent.categoria_id) {
+                    return null;
+                }
+
                 let categoria = await prisma.categorias.findFirst({
                     where: {
                         id: parent.categoria_id,

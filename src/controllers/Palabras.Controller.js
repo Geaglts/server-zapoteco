@@ -132,7 +132,7 @@ export default {
                             },
                         },
                         orderBy: {
-                            texto: "asc",
+                            id: "asc",
                         },
                     }
                 );
