@@ -1,4 +1,6 @@
 import { PrismaClient } from "@prisma/client";
+// import Significado from "../models/Significado";
+import Example from "../models/Examples";
 
 const prisma = new PrismaClient();
 
@@ -12,27 +14,88 @@ export default {
                     texto,
                     fonetica,
                     traduccion,
-                    base_id,
                     idcontexto,
                     idtipo,
+                    base_id,
+
                     ejemplo_esp,
                     ejemplo_zap,
-                    significado,
                 } = input;
-                console.log(
-                    texto,
-                    fonetica,
-                    traduccion,
-                    base_id,
-                    idcontexto,
-                    idtipo,
-                    ejemplo_esp,
-                    ejemplo_zap,
-                    significado,
-                    user.id
+
+                texto = texto.toLowerCase();
+                ejemplo_esp = ejemplo_esp.toLowerCase();
+                ejemplo_zap = ejemplo_zap.toLowerCase();
+                traduccion = traduccion.toLowerCase();
+                fonetica = fonetica.toUpperCase();
+
+                // Crear la palabra pendiente
+                let nueva_palabra_pendiente = await prisma.palabras_pendientes.create(
+                    {
+                        data: {
+                            texto,
+                            fonetica,
+                            traducciones: {
+                                create: {
+                                    traduccion,
+                                },
+                            },
+                            contextos: {
+                                connect: {
+                                    id: idcontexto,
+                                },
+                            },
+                            tipo: {
+                                connect: {
+                                    id: idtipo,
+                                },
+                            },
+                            usuario: {
+                                connect: {
+                                    id: user.id,
+                                },
+                            },
+                            base: {
+                                connect: {
+                                    id: base_id,
+                                },
+                            },
+                        },
+                    }
                 );
 
-                return null;
+                // Buscar la base de la palabra
+                // let base = await prisma.bases.findOne({
+                //     where: {
+                //         id: base_id,
+                //     },
+                // });
+
+                // Subir el significado a mongodb si no existe
+                // let el_significado_existe = await Significado.findOne({
+                //     $where: {
+                //         palabra: base.base_esp,
+                //     },
+                // });
+
+                // if (!el_significado_existe) {
+                //     let nuevo_significado = new Significado({
+                //         palabra: base.base_esp,
+                //         significado: significado,
+                //     });
+
+                //     await nuevo_significado.save();
+                // }
+
+                // Subir los ejemplos a mongodb
+                let nuevo_ejemplo = new Example({
+                    palabra: texto,
+                    ejemplo_esp,
+                    ejemplo_zap,
+                });
+
+                await nuevo_ejemplo.save();
+
+                return nunueva_palabra_pendientell;
             } catch (err) {
                 throw new Error(err);
             }

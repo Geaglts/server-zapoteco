@@ -106,7 +106,6 @@ export default gql`
 
         ejemplo_esp: String!
         ejemplo_zap: String!
-        significado: String!
     }
 
     extend type Query {

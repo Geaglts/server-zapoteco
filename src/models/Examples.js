@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const exampleSchema = new Schema({
-    texto: {
+    palabra: {
         type: String,
     },
     ejemplo_esp: {
