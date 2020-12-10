@@ -44,9 +44,8 @@ model palabras_aprobadas {
   idtipo       Int
   usuarioid    Int?
   fonetica     String
-  base_id      Int?
+  base_id      String?
   categoria_id Int?
-  base         bases?             @relation(fields: [base_id], references: [id])
   categoria    categorias?        @relation(fields: [categoria_id], references: [id])
   tipo         tipos              @relation(fields: [idtipo], references: [id])
   usuario      usuarios?          @relation(fields: [usuarioid], references: [id])
@@ -60,9 +59,8 @@ model palabras_pendientes {
   usuarioid    Int?
   idtipo       Int?
   fonetica     String?
-  base_id      Int?
+  base_id      String?
   categoria_id Int?
-  base         bases?             @relation(fields: [base_id], references: [id])
   categoria    categorias?        @relation(fields: [categoria_id], references: [id])
   tipo         tipos?             @relation(fields: [idtipo], references: [id])
   usuario      usuarios?          @relation(fields: [usuarioid], references: [id])
@@ -105,14 +103,6 @@ model palabra_contexto {
 model tipos {
   id                  Int                   @id @default(autoincrement())
   tipo                String
-  palabras_aprobadas  palabras_aprobadas[]
-  palabras_pendientes palabras_pendientes[]
-}
-
-model bases {
-  id                  Int                   @id @default(autoincrement())
-  base_esp            String
-  base_zap            String
   palabras_aprobadas  palabras_aprobadas[]
   palabras_pendientes palabras_pendientes[]
 }
