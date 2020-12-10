@@ -59,7 +59,7 @@ model palabras_pendientes {
   idtipo       Int?
   fonetica     String?
   base_id      Int?
-  bases        bases?             @relation(fields: [base_id], references: [id])
+  base         bases?             @relation(fields: [base_id], references: [id])
   tipo         tipos?             @relation(fields: [idtipo], references: [id])
   usuario      usuarios?          @relation(fields: [usuarioid], references: [id])
   contextos    palabra_contexto[]
