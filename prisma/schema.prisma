@@ -34,6 +34,7 @@ model usuarios {
   admin               Boolean
   puntos              Int?                  @default(0)
   palabras_aprobadas  palabras_aprobadas[]
+  palabras_rechazadas palabras_pendientes[] @relation("palabras_pendientes_rechazado_porTousuarios")
   palabras_pendientes palabras_pendientes[]
   roles               usuario_rol[]
 }
@@ -54,18 +55,22 @@ model palabras_aprobadas {
 }
 
 model palabras_pendientes {
-  id           Int                @id @default(autoincrement())
-  texto        String
-  usuarioid    Int?
-  idtipo       Int?
-  fonetica     String?
-  base_id      String?
-  categoria_id Int?
-  categoria    categorias?        @relation(fields: [categoria_id], references: [id])
-  tipo         tipos?             @relation(fields: [idtipo], references: [id])
-  usuario      usuarios?          @relation(fields: [usuarioid], references: [id])
-  contextos    palabra_contexto[]
-  traducciones traducciones[]
+  id                  Int                @id @default(autoincrement())
+  texto               String
+  usuarioid           Int?
+  idtipo              Int?
+  fonetica            String?
+  base_id             String?
+  categoria_id        Int?
+  rechazado           Boolean            @default(false)
+  mensaje             String?
+  rechazado_por       Int?
+  categoria           categorias?        @relation(fields: [categoria_id], references: [id])
+  tipo                tipos?             @relation(fields: [idtipo], references: [id])
+  usuario_que_rechazo usuarios?          @relation("palabras_pendientes_rechazado_porTousuarios", fields: [rechazado_por], references: [id])
+  usuario             usuarios?          @relation(fields: [usuarioid], references: [id])
+  contextos           palabra_contexto[]
+  traducciones        traducciones[]
 }
 
 model traducciones {
