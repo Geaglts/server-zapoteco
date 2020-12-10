@@ -32,7 +32,7 @@ model usuarios {
   contrasena          String
   ncontrol            String
   admin               Boolean
-  puntos              Int?
+  puntos              Int?                  @default(0)
   palabras_aprobadas  palabras_aprobadas[]
   palabras_pendientes palabras_pendientes[]
   roles               usuario_rol[]
@@ -44,6 +44,8 @@ model palabras_aprobadas {
   idtipo       Int
   usuarioid    Int?
   fonetica     String
+  base_id      Int?
+  base         bases?             @relation(fields: [base_id], references: [id])
   tipo         tipos              @relation(fields: [idtipo], references: [id])
   usuario      usuarios?          @relation(fields: [usuarioid], references: [id])
   contextos    palabra_contexto[]
@@ -55,7 +57,9 @@ model palabras_pendientes {
   texto        String
   usuarioid    Int?
   idtipo       Int?
-  fonetica     String
+  fonetica     String?
+  base_id      Int?
+  bases        bases?             @relation(fields: [base_id], references: [id])
   tipo         tipos?             @relation(fields: [idtipo], references: [id])
   usuario      usuarios?          @relation(fields: [usuarioid], references: [id])
   contextos    palabra_contexto[]
@@ -95,6 +99,14 @@ model palabra_contexto {
 model tipos {
   id                  Int                   @id @default(autoincrement())
   tipo                String
+  palabras_aprobadas  palabras_aprobadas[]
+  palabras_pendientes palabras_pendientes[]
+}
+
+model bases {
+  id                  Int                   @id @default(autoincrement())
+  base_esp            String
+  base_zap            String
   palabras_aprobadas  palabras_aprobadas[]
   palabras_pendientes palabras_pendientes[]
 }
