@@ -238,4 +238,6 @@ export default {
     // Bases
     newBase: BaseController.create,
     updateBase: BaseController.update,
+    assignBaseToWord: PalabraController.words.assignBase,
+    assignBaseToPendingWord: PalabraController.pendingWords.assignBase,
 };

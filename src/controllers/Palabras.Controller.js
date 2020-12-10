@@ -1,10 +1,36 @@
 import { PrismaClient } from "@prisma/client";
 // import Significado from "../models/Significado";
 import Example from "../models/Examples";
+import Base from "../models/Base";
 
 const prisma = new PrismaClient();
 
 export default {
+    words: {
+        assignBase: async (parent, args, context) => {
+            try {
+                const { base_id, word_id } = args;
+                // Busca la base
+                const base = await Base.findById(base_id);
+                if (!base) return null;
+
+                // Busca la palabra y actualiza
+                const word_with_base = await prisma.palabras_aprobadas.update({
+                    where: {
+                        id: word_id,
+                    },
+                    data: {
+                        base_id,
+                    },
+                });
+
+                // Retorna la palabra
+                return word_with_base;
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
+    },
     pendingWords: {
         create: async (parent, { input }, { user }) => {
             try {
@@ -286,6 +312,29 @@ export default {
                 }
 
                 return null;
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
+        assignBase: async (parent, args, context) => {
+            try {
+                const { base_id, pending_word_id } = args;
+                // Busca la base
+                const base = await Base.findById(base_id);
+                if (!base) return null;
+
+                // Busca la palabra y actualiza
+                const word_with_base = await prisma.palabras_pendientes.update({
+                    where: {
+                        id: pending_word_id,
+                    },
+                    data: {
+                        base_id,
+                    },
+                });
+
+                // Retorna la palabra
+                return word_with_base;
             } catch (err) {
                 throw new Error(err);
             }

@@ -181,5 +181,7 @@ export default gql`
     extend type Mutation {
         newBase(input: BaseInput!): Base
         updateBase(input: BaseInput!): Base
+        assignBaseToWord(base_id: String!, word_id: Int!): Words
+        assignBaseToPendingWord(base_id: String!, pending_word_id: Int!): Words
     }
 `;
