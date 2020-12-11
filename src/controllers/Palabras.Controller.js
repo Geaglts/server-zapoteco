@@ -361,9 +361,9 @@ export default {
 
                     await nuevo_ejemplo.save();
 
-                    await prisma.palabras_pendientes.delete({
+                    await prisma.palabras_pendientes.deleteMany({
                         where: {
-                            id: hay_palabra.id,
+                            texto: hay_palabra.texto,
                         },
                     });
 
