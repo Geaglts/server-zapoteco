@@ -49,6 +49,18 @@ export default {
                 } = input;
 
                 texto = texto.toLowerCase();
+
+                // Busca si ya existe en la tabla de palabras principales
+                const palabra_aprobada = await prisma.palabras_aprobadas.findOne(
+                    {
+                        where: {
+                            texto,
+                        },
+                    }
+                );
+
+                if (palabra_aprobada) return null;
+
                 ejemplo_esp = ejemplo_esp.toLowerCase();
                 ejemplo_zap = ejemplo_zap.toLowerCase();
                 traduccion = traduccion.toLowerCase();
