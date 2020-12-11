@@ -34,6 +34,64 @@ export default {
                 throw new Error(err);
             }
         },
+        async palabrasAgregadas(parent, args, context) {
+            try {
+                return prisma.palabras_aprobadas.count({
+                    where: {
+                        usuarioid: parent.id,
+                    },
+                });
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
+        async palabrasRechazadas(parent, args, context) {
+            try {
+                return prisma.palabras_pendientes.count({
+                    where: {
+                        AND: [
+                            {
+                                usuarioid: parent.id,
+                            },
+                            {
+                                rechazado: true,
+                            },
+                        ],
+                    },
+                });
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
+        async palabrasPendientes(parent, args, context) {
+            try {
+                return prisma.palabras_pendientes.count({
+                    where: {
+                        AND: [
+                            {
+                                usuarioid: parent.id,
+                            },
+                            {
+                                rechazado: false,
+                            },
+                        ],
+                    },
+                });
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
+        async palabrasVerificadas(parent, args, context) {
+            try {
+                return prisma.palabras_aprobadas.count({
+                    where: {
+                        id_aprobado_por: parent.id,
+                    },
+                });
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
     },
     Words: {
         async more(parent, args, context) {
