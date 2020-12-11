@@ -111,6 +111,10 @@ export default {
     getPendingWords: PalabraController.pendingWords.read,
     // Usuarios
     getUser: UsuarioController.readOne,
+    verifiedWords: UsuarioController.verifier.approved,
+    approvedWords: UsuarioController.words.approved,
+    pendingWords: UsuarioController.words.pendign,
+    rejectedWords: UsuarioController.words.rejected,
     // Tipos
     getTypes: TiposController.read,
     // Categorias

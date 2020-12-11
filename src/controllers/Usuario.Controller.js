@@ -74,4 +74,86 @@ export default {
             }
         },
     },
+    verifier: {
+        approved: async (parent, args, { user }) => {
+            try {
+                if (!user) return null;
+
+                const approvedWords = await prisma.palabras_aprobadas.findMany({
+                    where: {
+                        id_aprobado_por: user.id,
+                    },
+                });
+
+                return approvedWords;
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
+    },
+    words: {
+        approved: async (parent, args, { user }) => {
+            try {
+                if (!user) return null;
+
+                const approvedWords = await prisma.palabras_aprobadas.findMany({
+                    where: {
+                        usuarioid: user.id,
+                    },
+                });
+
+                return approvedWords;
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
+        pendign: async (parent, args, { user }) => {
+            try {
+                if (!user) return null;
+
+                const approvedWords = await prisma.palabras_pendientes.findMany(
+                    {
+                        where: {
+                            AND: [
+                                {
+                                    usuarioid: user.id,
+                                },
+                                {
+                                    rechazado: false,
+                                },
+                            ],
+                        },
+                    }
+                );
+
+                return approvedWords;
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
+        rejected: async (parent, args, { user }) => {
+            try {
+                if (!user) return null;
+
+                const approvedWords = await prisma.palabras_pendientes.findMany(
+                    {
+                        where: {
+                            AND: [
+                                {
+                                    usuarioid: user.id,
+                                },
+                                {
+                                    rechazado: true,
+                                },
+                            ],
+                        },
+                    }
+                );
+
+                return approvedWords;
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
+    },
 };

@@ -23,35 +23,38 @@ model usuario_rol {
 }
 
 model usuarios {
-  id                  Int                   @id @default(autoincrement())
-  nombre              String
-  amaterno            String
-  apaterno            String
-  usuario             String                @unique
-  correo              String                @unique
-  contrasena          String
-  ncontrol            String
-  admin               Boolean
-  puntos              Int?                  @default(0)
-  palabras_aprobadas  palabras_aprobadas[]
-  palabras_rechazadas palabras_pendientes[] @relation("palabras_pendientes_rechazado_porTousuarios")
-  palabras_pendientes palabras_pendientes[]
-  roles               usuario_rol[]
+  id                   Int                   @id @default(autoincrement())
+  nombre               String
+  amaterno             String
+  apaterno             String
+  usuario              String                @unique
+  correo               String                @unique
+  contrasena           String
+  ncontrol             String
+  admin                Boolean
+  puntos               Int?                  @default(0)
+  palabras_verificadas palabras_aprobadas[]  @relation("palabras_aprobadas_id_aprobado_porTousuarios")
+  palabras_aprobadas   palabras_aprobadas[]
+  palabras_rechazadas  palabras_pendientes[] @relation("palabras_pendientes_rechazado_porTousuarios")
+  palabras_pendientes  palabras_pendientes[]
+  roles                usuario_rol[]
 }
 
 model palabras_aprobadas {
-  id           Int                @id @default(autoincrement())
-  texto        String             @unique
-  idtipo       Int
-  usuarioid    Int?
-  fonetica     String
-  base_id      String?
-  categoria_id Int?
-  categoria    categorias?        @relation(fields: [categoria_id], references: [id])
-  tipo         tipos              @relation(fields: [idtipo], references: [id])
-  usuario      usuarios?          @relation(fields: [usuarioid], references: [id])
-  contextos    palabra_contexto[]
-  traducciones traducciones[]
+  id              Int                @id @default(autoincrement())
+  texto           String             @unique
+  idtipo          Int
+  usuarioid       Int?
+  fonetica        String
+  base_id         String?
+  categoria_id    Int?
+  id_aprobado_por Int?
+  categoria       categorias?        @relation(fields: [categoria_id], references: [id])
+  aprobada_por    usuarios?          @relation("palabras_aprobadas_id_aprobado_porTousuarios", fields: [id_aprobado_por], references: [id])
+  tipo            tipos              @relation(fields: [idtipo], references: [id])
+  usuario         usuarios?          @relation(fields: [usuarioid], references: [id])
+  contextos       palabra_contexto[]
+  traducciones    traducciones[]
 }
 
 model palabras_pendientes {

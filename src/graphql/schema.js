@@ -72,6 +72,10 @@ export default gql`
 
     extend type Query {
         getUser(correo: String!): User
+        verifiedWords: [Words]
+        approvedWords: [Words]
+        pendingWords: [PendingWord]
+        rejectedWords: [PendingWord]
     }
 
     # Palabras
@@ -98,6 +102,19 @@ export default gql`
     }
 
     # Palabras pendientes
+    type PendingWord {
+        id: Int
+        texto: String!
+        fonetica: String
+        tipo: String
+        traducciones: [String]
+        usuarioid: Int
+        categoria: String
+        contextos: [Contexto]
+        base: Base
+        more: More
+    }
+
     input newWordPendingInput {
         texto: String!
         fonetica: String!
