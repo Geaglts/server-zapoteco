@@ -68,6 +68,10 @@ export default gql`
         ncontrol: String!
         admin: Boolean!
         roles: [String]!
+        palabrasAgregadas: Int
+        palabrasRechazadas: Int
+        palabrasPendientes: Int
+        palabrasVerificadas: Int
     }
 
     extend type Query {
