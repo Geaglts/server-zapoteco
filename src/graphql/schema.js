@@ -139,7 +139,7 @@ export default gql`
     }
 
     extend type Query {
-        getPendingWords: [Words]
+        getPendingWords: [PendingWord]
     }
 
     extend type Mutation {

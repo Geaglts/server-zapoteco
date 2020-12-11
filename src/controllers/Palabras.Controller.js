@@ -145,41 +145,9 @@ export default {
             try {
                 let pendingWordsResponse = await prisma.palabras_pendientes.findMany(
                     {
-                        include: {
-                            traducciones: {
-                                select: {
-                                    traduccion: true,
-                                },
-                            },
-                            contextos: {
-                                select: {
-                                    contexto: true,
-                                },
-                            },
-                        },
                         orderBy: {
                             id: "asc",
                         },
-                    }
-                );
-
-                pendingWordsResponse = pendingWordsResponse.map(
-                    (pendingWord) => {
-                        if (pendingWord.traducciones.length > 0) {
-                            let traducciones = pendingWord.traducciones.map(
-                                ({ traduccion }) => traduccion
-                            );
-
-                            pendingWord = { ...pendingWord, traducciones };
-                        }
-                        if (pendingWord.contextos.length > 0) {
-                            let contextos = pendingWord.contextos.map(
-                                ({ contexto }) => contexto
-                            );
-
-                            pendingWord = { ...pendingWord, contextos };
-                        }
-                        return pendingWord;
                     }
                 );
 
