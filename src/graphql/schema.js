@@ -10,7 +10,7 @@ export default gql`
     }
 
     type Example {
-        _id: String!
+        _id: String
         ejemplo_esp: String
         ejemplo_zap: String
     }
@@ -116,8 +116,11 @@ export default gql`
         traducciones: [String]
         usuarioid: Int
         categoria: String
+        example: Example
         contextos: [Contexto]
         base: Base
+        mensaje: String
+        rechazado_por: User
         more: More
     }
 
@@ -126,7 +129,7 @@ export default gql`
         fonetica: String!
         traduccion: String!
 
-        base_id: Int!
+        base_id: String!
         idcontexto: Int!
         categoria_id: Int!
         idtipo: Int!
@@ -140,7 +143,7 @@ export default gql`
     }
 
     extend type Mutation {
-        newWordPending(input: newWordPendingInput): Words
+        newPendingWord(input: newWordPendingInput): Words
         rejectPendingWord(palabra_id: Int!, mensaje: String): Boolean
         deletePendingWord(palabra_id: Int): Boolean
         resendPendingWord(palabra_id: Int): Boolean

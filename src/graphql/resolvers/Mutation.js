@@ -222,7 +222,7 @@ export default {
         }
     },
     //Palabras
-    newWordPending: PalabraController.pendingWords.create,
+    newPendingWord: PalabraController.pendingWords.create,
     checkPendingWord: PalabraController.pendingWords.check,
     rejectPendingWord: PalabraController.pendingWords.rejectWord,
     deletePendingWord: PalabraController.pendingWords.delete,

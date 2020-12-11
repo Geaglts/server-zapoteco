@@ -44,7 +44,6 @@ export default {
                     categoria_id,
                     idtipo,
                     base_id,
-
                     ejemplo_esp,
                     ejemplo_zap,
                 } = input;
@@ -81,11 +80,9 @@ export default {
                                     id: user.id,
                                 },
                             },
-                            base: {
-                                connect: {
-                                    id: base_id,
-                                },
-                            },
+                            base_id,
+                            ejemplo_esp,
+                            ejemplo_zap,
                         },
                     }
                 );
@@ -126,15 +123,6 @@ export default {
 
                 //     await nuevo_significado.save();
                 // }
-
-                // Subir los ejemplos a mongodb
-                let nuevo_ejemplo = new Example({
-                    palabra: texto,
-                    ejemplo_esp,
-                    ejemplo_zap,
-                });
-
-                await nuevo_ejemplo.save();
 
                 return nueva_palabra_pendiente;
             } catch (err) {
@@ -246,6 +234,8 @@ export default {
         },
         check: async (parent, { id_usuario, id_palabra_p }, { user }) => {
             try {
+                if (!user) return null;
+
                 const hay_palabra = await prisma.palabras_pendientes.findOne({
                     where: {
                         id: id_palabra_p,
@@ -269,8 +259,8 @@ export default {
                     };
 
                     if (hay_palabra.categoria_id) {
-                        palabra_aprobada = {
-                            ...palabra_aprobada,
+                        palabra_aprobada_data = {
+                            ...palabra_aprobada_data,
                             categoria: {
                                 connect: {
                                     id: hay_palabra.categoria_id,
@@ -281,18 +271,21 @@ export default {
 
                     if (hay_palabra.base_id) {
                         palabra_aprobada_data = {
-                            ...palabra_aprobada,
-                            base: {
-                                connect: {
-                                    id: hay_palabra.base_id,
-                                },
-                            },
+                            ...palabra_aprobada_data,
+                            base_id: hay_palabra.base_id,
                         };
                     }
 
                     const palabra_aprobada = await prisma.palabras_aprobadas.create(
                         {
-                            data: palabra_aprobada_data,
+                            data: {
+                                ...palabra_aprobada_data,
+                                aprobada_por: {
+                                    connect: {
+                                        id: user.id,
+                                    },
+                                },
+                            },
                         }
                     );
 
@@ -346,6 +339,15 @@ export default {
                             },
                         });
                     }
+
+                    // Subir los ejemplos a mongodb
+                    let nuevo_ejemplo = new Example({
+                        palabra: hay_palabra.texto,
+                        ejemplo_esp: hay_palabra.ejemplo_esp,
+                        ejemplo_zap: hay_palabra.ejemplo_zap,
+                    });
+
+                    await nuevo_ejemplo.save();
 
                     await prisma.palabras_pendientes.delete({
                         where: {
