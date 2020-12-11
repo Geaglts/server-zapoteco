@@ -74,6 +74,50 @@ export default {
             }
         },
     },
+    teacher: {
+        verifiers: async (parent, args, { user }) => {
+            try {
+                if (!user) return null;
+
+                return await prisma.usuarios.findMany({
+                    where: {
+                        roles: {
+                            some: {
+                                rol: {
+                                    rol: {
+                                        equals: "verificador",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                });
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
+        capturers: async (parent, args, { user }) => {
+            try {
+                if (!user) return null;
+
+                return await prisma.usuarios.findMany({
+                    where: {
+                        roles: {
+                            some: {
+                                rol: {
+                                    rol: {
+                                        equals: "capturador",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                });
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
+    },
     verifier: {
         approved: async (parent, args, { user }) => {
             try {

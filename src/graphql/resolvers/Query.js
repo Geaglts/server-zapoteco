@@ -115,6 +115,8 @@ export default {
     approvedWords: UsuarioController.words.approved,
     pendingWords: UsuarioController.words.pendign,
     rejectedWords: UsuarioController.words.rejected,
+    verifiers: UsuarioController.teacher.verifiers,
+    capturers: UsuarioController.teacher.capturers,
     // Tipos
     getTypes: TiposController.read,
     // Categorias

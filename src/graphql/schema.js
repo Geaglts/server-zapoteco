@@ -72,6 +72,8 @@ export default gql`
 
     extend type Query {
         getUser(correo: String!): User
+        verifiers: [User]
+        capturers: [User]
         verifiedWords: [Words]
         approvedWords: [Words]
         pendingWords: [PendingWord]
