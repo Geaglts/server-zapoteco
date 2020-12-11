@@ -32,7 +32,9 @@ export default {
         try {
             let { id, ...otherInputs } = input;
             // Actuzaliza la base
-            const updatedBase = await Base.findByIdAndUpdate(id, otherInputs);
+            const updatedBase = await Base.findByIdAndUpdate(id, otherInputs, {
+                new: true,
+            });
             // Retorna la base
             return updatedBase;
         } catch (err) {

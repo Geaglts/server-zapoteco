@@ -188,6 +188,62 @@ export default {
                 throw new Error(err);
             }
         },
+        udpate: async (parent, args, context) => {
+            try {
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
+        delete: async (parent, { palabra_id }, { user }) => {
+            try {
+                if (!user) return null;
+                let user_id = user.id;
+
+                // Verifica si la palabra es de ese usuario
+                let palabra_por_eliminar = await prisma.palabras_pendientes.findFirst(
+                    {
+                        where: {
+                            AND: [
+                                {
+                                    usuario: {
+                                        id: user_id,
+                                    },
+                                },
+                                {
+                                    id: palabra_id,
+                                },
+                            ],
+                        },
+                    }
+                );
+
+                if (palabra_por_eliminar?.id !== palabra_id) return null;
+
+                // Eliminar los residuos de donde esta la palabra
+                // Traducciones
+                await prisma.traducciones.deleteMany({
+                    where: {
+                        palabra_pid: palabra_id,
+                    },
+                });
+                // Palabras contextos
+                await prisma.palabra_contexto.deleteMany({
+                    where: {
+                        id_posible_palabra: palabra_id,
+                    },
+                });
+
+                await prisma.palabras_pendientes.delete({
+                    where: {
+                        id: palabra_id,
+                    },
+                });
+
+                return true;
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
         check: async (parent, { id_usuario, id_palabra_p }, { user }) => {
             try {
                 const hay_palabra = await prisma.palabras_pendientes.findOne({
