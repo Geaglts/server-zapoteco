@@ -347,17 +347,6 @@ export default {
                         });
                     }
 
-                    await prisma.usuarios.update({
-                        where: {
-                            id: id_usuario,
-                        },
-                        data: {
-                            puntos: {
-                                increment: 1,
-                            },
-                        },
-                    });
-
                     await prisma.palabras_pendientes.delete({
                         where: {
                             id: hay_palabra.id,

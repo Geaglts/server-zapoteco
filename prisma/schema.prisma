@@ -32,7 +32,6 @@ model usuarios {
   contrasena           String
   ncontrol             String
   admin                Boolean
-  puntos               Int?                  @default(0)
   palabras_verificadas palabras_aprobadas[]  @relation("palabras_aprobadas_id_aprobado_porTousuarios")
   palabras_aprobadas   palabras_aprobadas[]
   palabras_rechazadas  palabras_pendientes[] @relation("palabras_pendientes_rechazado_porTousuarios")
