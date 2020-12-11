@@ -427,5 +427,49 @@ export default {
                 throw new Error(err);
             }
         },
+        resendToRevision: async (parent, { palabra_id }, { user }) => {
+            try {
+                if (!user) return null;
+                let user_id = user.id;
+
+                // Verifica si la palabra es de ese usuario
+                let palabra_por_eliminar = await prisma.palabras_pendientes.count(
+                    {
+                        where: {
+                            AND: [
+                                {
+                                    usuario: {
+                                        id: user_id,
+                                    },
+                                },
+                                {
+                                    id: palabra_id,
+                                },
+                            ],
+                        },
+                    }
+                );
+
+                if (palabra_por_eliminar === 0) return null;
+
+                // Resetear los valores de mensaje, rechazado, rechazado_por
+                await prisma.palabras_pendientes.update({
+                    where: {
+                        id: palabra_id,
+                    },
+                    data: {
+                        rechazado: false,
+                        mensaje: null,
+                        usuario_que_rechazo: {
+                            disconnect: true,
+                        },
+                    },
+                });
+
+                return true;
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
     },
 };

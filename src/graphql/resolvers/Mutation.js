@@ -226,6 +226,7 @@ export default {
     checkPendingWord: PalabraController.pendingWords.check,
     rejectPendingWord: PalabraController.pendingWords.rejectWord,
     deletePendingWord: PalabraController.pendingWords.delete,
+    resendPendingWord: PalabraController.pendingWords.resendToRevision,
     //Tipos
     newType: TiposController.create,
     updateType: TiposController.update,
