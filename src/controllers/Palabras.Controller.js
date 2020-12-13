@@ -145,6 +145,9 @@ export default {
             try {
                 let pendingWordsResponse = await prisma.palabras_pendientes.findMany(
                     {
+                        where: {
+                            rechazado: false,
+                        },
                         orderBy: {
                             id: "asc",
                         },
