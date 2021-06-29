@@ -1,38 +1,38 @@
 {
-    "name": "zapoteco-server",
-    "version": "1.0.0",
-    "main": "dist/index.js",
-    "license": "MIT",
-    "scripts": {
-        "dev": "nodemon",
-        "build": "babel src --out-dir dist",
-        "heroku-prebuild": "babel src --out-dir dist",
-        "start": "node dist/index.js",
-        "heroku-postbuild": "prisma generate"
-    },
-    "engines": {
-        "node": "14.13.0"
-    },
-    "dependencies": {
-        "@babel/cli": "^7.12.8",
-        "@babel/core": "^7.12.9",
-        "@babel/node": "^7.12.6",
-        "@babel/plugin-transform-runtime": "^7.12.1",
-        "@babel/preset-env": "^7.12.7",
-        "@prisma/cli": "2.11.0",
-        "@prisma/client": "2.11.0",
-        "apollo-server-express": "^2.19.0",
-        "babel-plugin-graphql-tag": "^3.1.0",
-        "bcrypt": "^5.0.0",
-        "cors": "^2.8.5",
-        "dotenv": "^8.2.0",
-        "express": "^4.17.1",
-        "graphql": "^15.4.0",
-        "graphql-tools": "^7.0.1",
-        "graphql-type-json": "^0.3.2",
-        "jsonwebtoken": "^8.5.1",
-        "mongoose": "^5.11.4",
-        "validator": "^13.5.1"
-    },
-    "devDependencies": {}
+  "name": "zapoteco-server",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "babel src --out-dir dist",
+    "heroku-prebuild": "babel src --out-dir dist",
+    "start": "node dist/index.js",
+    "heroku-postbuild": "prisma generate"
+  },
+  "engines": {
+    "node": "14.13.0"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.9",
+    "@babel/node": "^7.12.6",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/preset-env": "^7.12.7",
+    "@prisma/cli": "2.11.0",
+    "@prisma/client": "2.11.0",
+    "apollo-server-express": "^2.19.0",
+    "babel-plugin-graphql-tag": "^3.1.0",
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql": "^15.4.0",
+    "graphql-tools": "^7.0.1",
+    "graphql-type-json": "^0.3.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.4",
+    "validator": "^13.5.1"
+  },
+  "devDependencies": {}
 }

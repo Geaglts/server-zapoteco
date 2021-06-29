@@ -1,216 +1,216 @@
-import { gql } from "apollo-server-express";
+import { gql } from 'apollo-server-express';
 
 export default gql`
-    scalar JSON
+  scalar JSON
 
-    type Rol {
-        id: Int!
-        rol: String!
-        desc: String
-    }
+  type Rol {
+    id: Int!
+    rol: String!
+    desc: String
+  }
 
-    type Example {
-        _id: String
-        ejemplo_esp: String
-        ejemplo_zap: String
-    }
+  type Example {
+    _id: String
+    ejemplo_esp: String
+    ejemplo_zap: String
+  }
 
-    type WordType {
-        id: Int!
-        tipo: String!
-    }
+  type WordType {
+    id: Int!
+    tipo: String!
+  }
 
-    input UserInput {
-        nombre: String!
-        amaterno: String!
-        apaterno: String!
-        usuario: String!
-        correo: String!
-        contrasena: String!
-        ncontrol: String
-    }
+  input UserInput {
+    nombre: String!
+    amaterno: String!
+    apaterno: String!
+    usuario: String!
+    correo: String!
+    contrasena: String!
+    ncontrol: String
+  }
 
-    input WordInput {
-        esp: [String]!
-        zap: String!
-        tipo: Int!
-    }
+  input WordInput {
+    esp: [String]!
+    zap: String!
+    tipo: Int!
+  }
 
-    type Query {
-        getRols: [Rol!]
-        getWords: [Words]!
-        getTypes: [WordType]!
+  type Query {
+    getRols: [Rol!]
+    getWords: [Words]!
+    getTypes: [WordType]!
 
-        aboutMe: User
-        myRoles: [String]!
-    }
+    aboutMe: User
+    myRoles: [String]!
+  }
 
-    type Mutation {
-        newUser(input: UserInput!): JSON
-        newWord(input: WordInput!): JSON
+  type Mutation {
+    newUser(input: UserInput!): JSON
+    newWord(input: WordInput!): JSON
 
-        assignRoles(rolIds: [Int!], userId: Int!): JSON
-        login(user: String!, contrasena: String!): JSON
+    assignRoles(rolIds: [Int!], userId: Int!): JSON
+    login(user: String!, contrasena: String!): JSON
 
-        newType(tipo: String!): JSON
-        updateType(id: Int!, tipo: String!): JSON
-    }
+    newType(tipo: String!): JSON
+    updateType(id: Int!, tipo: String!): JSON
+  }
 
-    # Usuarios
-    type User {
-        id: Int!
-        nombre: String!
-        amaterno: String!
-        apaterno: String!
-        usuario: String!
-        correo: String!
-        contrasena: String
-        ncontrol: String!
-        admin: Boolean!
-        roles: [String]!
-        palabrasAgregadas: Int
-        palabrasRechazadas: Int
-        palabrasPendientes: Int
-        palabrasVerificadas: Int
-    }
+  # Usuarios
+  type User {
+    id: Int!
+    nombre: String!
+    amaterno: String!
+    apaterno: String!
+    usuario: String!
+    correo: String!
+    contrasena: String
+    ncontrol: String!
+    admin: Boolean!
+    roles: [String]!
+    palabrasAgregadas: Int
+    palabrasRechazadas: Int
+    palabrasPendientes: Int
+    palabrasVerificadas: Int
+  }
 
-    extend type Query {
-        getUser(correo: String!): User
-        verifiers: [User]
-        capturers: [User]
-        verifiedWords: [Words]
-        approvedWords: [Words]
-        pendingWords: [PendingWord]
-        rejectedWords: [PendingWord]
-    }
+  extend type Query {
+    getUser(correo: String!): User
+    verifiers: [User]
+    capturers: [User]
+    verifiedWords: [Words]
+    approvedWords: [Words]
+    pendingWords: [PendingWord]
+    rejectedWords: [PendingWord]
+  }
 
-    # Palabras
-    type More {
-        examples: [Example]!
-        significado: String
-    }
+  # Palabras
+  type More {
+    examples: [Example]!
+    significado: String
+  }
 
-    type Words {
-        id: Int
-        texto: String!
-        fonetica: String
-        tipo: String
-        traducciones: [String]
-        usuarioid: Int
-        categoria: String
-        contextos: [Contexto]
-        base: Base
-        more: More
-    }
+  type Words {
+    id: Int
+    texto: String!
+    fonetica: String
+    tipo: String
+    traducciones: [String]
+    usuarioid: Int
+    categoria: String
+    contextos: [Contexto]
+    base: Base
+    more: More
+  }
 
-    extend type Mutation {
-        checkPendingWord(id_usuario: Int!, id_palabra_p: Int!): JSON
-    }
+  extend type Mutation {
+    checkPendingWord(id_usuario: Int!, id_palabra_p: Int!): JSON
+  }
 
-    # Palabras pendientes
-    type PendingWord {
-        id: Int
-        texto: String!
-        fonetica: String
-        tipo: String
-        traducciones: [String]
-        usuarioid: Int
-        categoria: String
-        example: Example
-        contextos: [Contexto]
-        base: Base
-        mensaje: String
-        rechazado_por: User
-        more: More
-    }
+  # Palabras pendientes
+  type PendingWord {
+    id: Int
+    texto: String!
+    fonetica: String
+    tipo: String
+    traducciones: [String]
+    usuarioid: Int
+    categoria: String
+    example: Example
+    contextos: [Contexto]
+    base: Base
+    mensaje: String
+    rechazado_por: User
+    more: More
+  }
 
-    input newWordPendingInput {
-        texto: String!
-        fonetica: String!
-        traduccion: String!
+  input newWordPendingInput {
+    texto: String!
+    fonetica: String!
+    traduccion: String!
 
-        base_id: String!
-        idcontexto: Int!
-        categoria_id: Int!
-        idtipo: Int!
+    base_id: String!
+    idcontexto: Int!
+    categoria_id: Int!
+    idtipo: Int!
 
-        ejemplo_esp: String!
-        ejemplo_zap: String!
-    }
+    ejemplo_esp: String!
+    ejemplo_zap: String!
+  }
 
-    extend type Query {
-        getPendingWords: [PendingWord]
-    }
+  extend type Query {
+    getPendingWords: [PendingWord]
+  }
 
-    extend type Mutation {
-        newPendingWord(input: newWordPendingInput): Words
-        rejectPendingWord(palabra_id: Int!, mensaje: String): Boolean
-        deletePendingWord(palabra_id: Int): Boolean
-        resendPendingWord(palabra_id: Int): Boolean
-    }
+  extend type Mutation {
+    newPendingWord(input: newWordPendingInput): Words
+    rejectPendingWord(palabra_id: Int!, mensaje: String): Boolean
+    deletePendingWord(palabra_id: Int): Boolean
+    resendPendingWord(palabra_id: Int): Boolean
+  }
 
-    # Categorias
-    type Category {
-        id: Int!
-        categoria: String!
-    }
+  # Categorias
+  type Category {
+    id: Int!
+    categoria: String!
+  }
 
-    extend type Query {
-        getCategories: [Category]!
-    }
+  extend type Query {
+    getCategories: [Category]!
+  }
 
-    extend type Mutation {
-        newCategory(categoria: String!): JSON
-        updateCategory(id: Int!, categoria: String!): JSON
-    }
+  extend type Mutation {
+    newCategory(categoria: String!): JSON
+    updateCategory(id: Int!, categoria: String!): JSON
+  }
 
-    # Contexto
-    type Contexto {
-        id: Int
-        contexto: String
-    }
+  # Contexto
+  type Contexto {
+    id: Int
+    contexto: String
+  }
 
-    extend type Query {
-        getContextos: [Contexto]!
-    }
+  extend type Query {
+    getContextos: [Contexto]!
+  }
 
-    extend type Mutation {
-        newContexto(contexto: String!): Contexto
-        updateContexto(id: Int!, contexto: String!): Contexto
-    }
+  extend type Mutation {
+    newContexto(contexto: String!): Contexto
+    updateContexto(id: Int!, contexto: String!): Contexto
+  }
 
-    # Roles
-    extend type Mutation {
-        setRols(rolids: [Int], usuarioid: Int!): JSON
-    }
+  # Roles
+  extend type Mutation {
+    setRols(rolids: [Int], usuarioid: Int!): JSON
+  }
 
-    type Subscription {
-        test: Boolean
-    }
+  type Subscription {
+    test: Boolean
+  }
 
-    # Bases
-    type Base {
-        id: ID
-        base_esp: String
-        base_zap: String
-        significado: String
-    }
+  # Bases
+  type Base {
+    id: ID
+    base_esp: String
+    base_zap: String
+    significado: String
+  }
 
-    input BaseInput {
-        id: ID
-        base_esp: String
-        base_zap: String
-        significado: String
-    }
+  input BaseInput {
+    id: ID
+    base_esp: String
+    base_zap: String
+    significado: String
+  }
 
-    extend type Query {
-        allTheBases: [Base]
-    }
+  extend type Query {
+    allTheBases: [Base]
+  }
 
-    extend type Mutation {
-        newBase(input: BaseInput!): Base
-        updateBase(input: BaseInput!): Base
-        assignBaseToWord(base_id: String!, word_id: Int!): Words
-        assignBaseToPendingWord(base_id: String!, pending_word_id: Int!): Words
-    }
+  extend type Mutation {
+    newBase(input: BaseInput!): Base
+    updateBase(input: BaseInput!): Base
+    assignBaseToWord(base_id: String!, word_id: Int!): Words
+    assignBaseToPendingWord(base_id: String!, pending_word_id: Int!): Words
+  }
 `;

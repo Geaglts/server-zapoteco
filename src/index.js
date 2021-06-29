@@ -1,12 +1,12 @@
-import App from "./express";
+import App from './express';
 const { app, server, httpServer } = App;
 
 // mongodb connection
-import "./lib/mongo";
+import './lib/mongo';
 
-const PORT = app.get("port");
+const PORT = app.get('port');
 const GRAPHQL_PATH = server.graphqlPath;
 
 httpServer.listen(PORT, () => {
-    console.log(`Server started on http://localhost:${PORT}${GRAPHQL_PATH}`);
+  console.log(`Server started on http://localhost:${PORT}${GRAPHQL_PATH}`);
 });
