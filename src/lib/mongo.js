@@ -1,9 +1,8 @@
 import mongoose from "mongoose";
-
-const palabraUri = process.env.MONGODB_PALABRA_URI;
+import { config } from "../config";
 
 export default mongoose
-    .connect(palabraUri, {
+    .connect(config.isDev ? config.localMongoUri : config.prodMongoUri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false,

@@ -1,6 +1,4 @@
-if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
-}
+import { config } from "./config";
 import { compare, genSalt, hash } from "bcrypt";
 import { sign, verify } from "jsonwebtoken";
 
@@ -45,12 +43,10 @@ export const auth = {
 
 export const token = {
     generateToken: (data) => {
-        const token = process.env.JSON_SECRET_TOKEN;
-        return sign({ data }, token);
+        return sign({ data }, config.jwtSecret);
     },
     verifyToken: (token) => {
-        const jsonToken = process.env.JSON_SECRET_TOKEN;
-        return verify(token, jsonToken);
+        return verify(token, config.jwtSecret);
     },
 };
 
