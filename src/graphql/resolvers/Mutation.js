@@ -26,10 +26,8 @@ export default {
       let inputs = Utils.validateString(input, excludes);
       if (!inputs) return { status: 'check your entries' };
 
-      let userExists = await prisma.usuarios.findUnique({
-        where: {
-          correo: inputs.correo,
-        },
+      let userExists = await prisma.usuarios.findFirst({
+        where: { correo: inputs.correo },
       });
 
       if (userExists) return { status: 'user exists' };
@@ -55,7 +53,7 @@ export default {
         data: {
           rol: {
             connect: {
-              id: 2,
+              id: 3,
             },
           },
           usuario: {
@@ -180,7 +178,7 @@ export default {
         return { message: 'Ya registraste esta palabra' };
       }
 
-      let wordExists = await prisma.palabras_aprobadas.findUnique({
+      let wordExists = await prisma.palabras_aprobadas.findFirst({
         where: {
           texto: input.zap.toLowerCase(),
         },
@@ -193,7 +191,11 @@ export default {
       let pendiente = await prisma.palabras_pendientes.create({
         data: {
           texto: input.zap.toLowerCase(),
-          tipo: input.tipo,
+          tipo: {
+            connect: {
+              id: input.tipo,
+            },
+          },
           usuario: {
             connect: {
               id: user.id,
@@ -217,6 +219,7 @@ export default {
 
       return { message: 'La palabra ha sido agregada' };
     } catch (err) {
+      console.log(err);
       throw new Error(err);
     }
   },

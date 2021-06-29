@@ -4,6 +4,7 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
+    "setup:db": "npx prisma introspect && npx prisma generate",
     "dev": "nodemon",
     "build": "babel src --out-dir dist",
     "heroku-prebuild": "babel src --out-dir dist",
@@ -19,8 +20,7 @@
     "@babel/node": "^7.12.6",
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.7",
-    "@prisma/cli": "2.11.0",
-    "@prisma/client": "2.11.0",
+    "@prisma/client": "^2.26.0",
     "apollo-server-express": "^2.19.0",
     "babel-plugin-graphql-tag": "^3.1.0",
     "bcrypt": "^5.0.0",
@@ -34,5 +34,7 @@
     "mongoose": "^5.11.4",
     "validator": "^13.5.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "prisma": "^2.26.0"
+  }
 }

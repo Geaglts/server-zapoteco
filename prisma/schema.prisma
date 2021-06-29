@@ -9,8 +9,8 @@ datasource db {
 
 model roles {
   id       Int           @id @default(autoincrement())
-  desc     String?
-  rol      String        @unique
+  rol      String        @db.VarChar(50)
+  desc     String?       @db.VarChar(150)
   usuarios usuario_rol[]
 }
 
@@ -24,14 +24,14 @@ model usuario_rol {
 
 model usuarios {
   id                   Int                   @id @default(autoincrement())
-  nombre               String
-  amaterno             String
-  apaterno             String
-  usuario              String                @unique
-  correo               String                @unique
+  nombre               String                @db.VarChar(100)
+  amaterno             String                @db.VarChar(100)
+  apaterno             String                @db.VarChar(100)
+  usuario              String                @unique @db.VarChar(20)
+  correo               String                @unique @db.VarChar(100)
   contrasena           String
-  ncontrol             String
-  admin                Boolean
+  ncontrol             String                @db.VarChar(10)
+  admin                Boolean?              @default(false)
   palabras_verificadas palabras_aprobadas[]  @relation("palabras_aprobadas_id_aprobado_porTousuarios")
   palabras_aprobadas   palabras_aprobadas[]
   palabras_rechazadas  palabras_pendientes[] @relation("palabras_pendientes_rechazado_porTousuarios")
@@ -41,34 +41,34 @@ model usuarios {
 
 model palabras_aprobadas {
   id              Int                @id @default(autoincrement())
-  texto           String             @unique
+  texto           String             @unique @db.VarChar(100)
+  fonetica        String?            @db.VarChar(100)
+  base_id         String?            @db.VarChar(30)
+  usuarioid       Int
   idtipo          Int
-  usuarioid       Int?
-  fonetica        String
-  base_id         String?
-  categoria_id    Int?
-  id_aprobado_por Int?
-  categoria       categorias?        @relation(fields: [categoria_id], references: [id])
-  aprobada_por    usuarios?          @relation("palabras_aprobadas_id_aprobado_porTousuarios", fields: [id_aprobado_por], references: [id])
+  categoria_id    Int
+  id_aprobado_por Int
+  categoria       categorias         @relation(fields: [categoria_id], references: [id])
+  aprobada_por    usuarios           @relation("palabras_aprobadas_id_aprobado_porTousuarios", fields: [id_aprobado_por], references: [id])
   tipo            tipos              @relation(fields: [idtipo], references: [id])
-  usuario         usuarios?          @relation(fields: [usuarioid], references: [id])
+  usuario         usuarios           @relation(fields: [usuarioid], references: [id])
   contextos       palabra_contexto[]
   traducciones    traducciones[]
 }
 
 model palabras_pendientes {
   id                  Int                @id @default(autoincrement())
-  texto               String
+  texto               String             @db.VarChar(100)
+  fonetica            String?            @db.VarChar(100)
+  base_id             String?            @db.VarChar(30)
+  ejemplo_esp         String?            @db.VarChar(100)
+  ejemplo_zap         String?            @db.VarChar(100)
+  mensaje             String?            @db.VarChar(150)
+  rechazado           Boolean?           @default(false)
   usuarioid           Int?
   idtipo              Int?
-  fonetica            String?
-  base_id             String?
   categoria_id        Int?
-  rechazado           Boolean            @default(false)
-  mensaje             String?
   rechazado_por       Int?
-  ejemplo_esp         String?
-  ejemplo_zap         String?
   categoria           categorias?        @relation(fields: [categoria_id], references: [id])
   tipo                tipos?             @relation(fields: [idtipo], references: [id])
   usuario_que_rechazo usuarios?          @relation("palabras_pendientes_rechazado_porTousuarios", fields: [rechazado_por], references: [id])
@@ -79,7 +79,7 @@ model palabras_pendientes {
 
 model traducciones {
   id          Int                  @id @default(autoincrement())
-  traduccion  String
+  traduccion  String?              @db.VarChar(100)
   palabraid   Int?
   palabra_pid Int?
   pendiente   palabras_pendientes? @relation(fields: [palabra_pid], references: [id])
@@ -88,14 +88,14 @@ model traducciones {
 
 model categorias {
   id                  Int                   @id @default(autoincrement())
-  categoria           String
+  categoria           String?               @db.VarChar(100)
   palabras_aprobadas  palabras_aprobadas[]
   palabras_pendientes palabras_pendientes[]
 }
 
 model contextos {
   id       Int                @id @default(autoincrement())
-  contexto String
+  contexto String?            @db.VarChar(100)
   palabras palabra_contexto[]
 }
 
@@ -111,7 +111,7 @@ model palabra_contexto {
 
 model tipos {
   id                  Int                   @id @default(autoincrement())
-  tipo                String
+  tipo                String?               @db.VarChar(100)
   palabras_aprobadas  palabras_aprobadas[]
   palabras_pendientes palabras_pendientes[]
 }
